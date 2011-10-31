@@ -1,0 +1,14 @@
+<a href="javascript:void(null)" class="prev">&nbsp;</a>
+<div class="anyClass scrol">
+  <ul>
+    <% items.each do |item| %>
+      <li>
+        <%= link_to (item.images.empty?) ? image_tag('prod1.gif') : image_tag(item.images.first.url(:item_featured)), item_path(item) %>
+        <h6 class="colr"><%= item.name %></h6>
+        <p class="price bold"><%= number_to_currency item.price%></p>
+        <a href="<%= new_user_swap_path(item.user) %>?item=<%=item.id%>" class="adcart">Make Offer</a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<a href="javascript:void(null)" class="next">&nbsp;</a>

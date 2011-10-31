@@ -1,0 +1,80 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for_resource :html => {:multipart => true} do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :weight_lbs, 'Weight in lbs' %>
+    <%= f.text_field :weight_lbs %>
+  </div>
+  <div class="field">
+    <%= f.label :price, 'Price / Value' %>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :category %>
+    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+  <% unless !enclosing_resource.nil? and enclosing_resource.is_a?(Locker)%>
+    <div class="field">
+      <%= f.label :locker %>
+      <%= f.collection_select :locker_id, current_user.lockers, :id, :name %>
+    </div>
+  <% end %>
+  <div class="field">
+    <div id="team">
+      <% unless resource.team.blank? %>
+        <%= render :partial => '/teams/short_single', :locals => {:team => resource.team, :object_name => 'item'} %>
+      <% end %>
+    </div>
+    <%= text_field_tag 'search[name]', 'Enter a team name here', :id => 'teamsearch', :size => 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :available %>
+    <%= f.check_box :available %>
+  </div>
+
+  <h3>Images</h3>
+
+  <%= f.fields_for :images do |image_form| %>
+    <%= render :partial => 'image_form', :locals => {:image_form => image_form} %>
+  <% end %>
+  <br/>
+  <%= f.submit %>
+<% end %>
+
+
+<%= javascript_tag do %>
+  function handleSelect(text, id) {
+  $.ajax({
+  url: '/teams/'+id+'/short?obj=user_profile&single=1',
+  success: function(html) { $('#team').html(html); }
+  });
+
+  $('#teamsearch')[0].value = 'Enter a team name here';
+  }
+
+  $(function(){
+  options = {
+  serviceUrl:'<%= ac_teams_path%>',
+  minChars:2,
+  onSelect: handleSelect
+  };
+  $('#teamsearch').autocomplete(options);
+  $('#teamsearch').focus(function(){this.value = ''});
+
+
+  });
+<% end %>

@@ -1,0 +1,163 @@
+<% if @swap.errors.any? %>
+  <div id="error_explanation" class="clear">
+    <h2><%= pluralize(@swap.errors.count, "error") %> prohibited this swap from being saved:</h2>
+
+    <ul class="forms">
+      <% @swap.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="clear"></div>
+<% end %>
+
+<%= form_for_resource do |f|  %>
+  <% if @swap.new_record? %>
+    <ul class="forms">
+      <li class="txt">
+       <!-- <%= f.label :name, "Name this swap" %>-->
+      </li>
+      <li class="inputfield">
+        <%= f.hidden_field :name %>
+      </li>
+    </ul>
+  <% else %>
+    <h2>"<%= @swap.name %>"</h2>
+  <% end %>
+  <br/><br/>
+  <div id="their-items" class="clear">
+    <h3>Select the gear you want from mike skudin'<%=them %>'s Locker:</h3>
+
+
+    <!--
+    <%= f.fields_for :swap_items do |form|  %>
+      <% next if form.object.recipient != current_user %>
+      <%= render :partial => 'swap_item', :locals => {:form => form} %>
+    <% end %>
+    -->
+    <ul class="forms">
+
+      <% @their_swappable_items.each do |item|  %>
+      <div style="float:left;margin-right:50px;"><li class="txt clear">
+          
+        <li class="txt clear">
+          <label for="item-<%= item.id %>"><% unless item.images.blank? %><%= image_tag(item.images.first.url(:thumb)) %><% else %><%=image_tag('missing_thumb.jpg')%><% end %> <%= item.name %></label>
+        </li>
+        <li class="check" style="margin-top:5px;margin-left:5px;">
+          <%= check_box_tag 'their_items[]', item.id, swap_has_item?(@swap, item), :id => "item-#{item.id}" %>
+        </li>
+       </div>
+      <% end %>
+    </ul>
+  </div>
+  <!--
+  <%= collection_select :their_items, :item_id, @their_swappable_items, :id, :name, {:include_blank => true}, {:id => 'their-select'} %>
+    <a href="#" id="select_theirs">Add</a>
+  -->
+  
+  <div id="my-items" class="clear">
+    <h3>Your Offer:</h3>
+    <!--
+    <%= f.fields_for :swap_items do |form|  %>
+      <% next if form.object.recipient == current_user %>
+      <%= render :partial => 'swap_item', :locals => {:form => form} %>
+    <% end %>
+    -->
+    <ul class="forms">
+    <li class="txt">
+        <strong>
+        <input type="radio" name="radio" id="radio" value="radio">
+        <label :cash_offer, "Offer Gear:">Offer Cash:</label>
+        </strong></li>
+      
+      <li class="inputfield">
+        $<%= text_field_tag :cash_offer, @cash_offer, :size => 6 %>
+      </li>
+    </ul>
+    <%= f.submit %><br/>
+    <div class="clear"></div>
+    <ul class="forms">
+    <li class="txt">
+        <strong>
+        <input type="radio" name="radio" id="radio" value="radio">
+        <label for="cash_offer_Or make a cash offer:">Offer Gear:</label>
+        </strong></li>
+      <% @my_swappable_items.each do |item|  %>
+      <div style="float:left;margin-right:50px;"><li class="txt clear">
+         
+        <li class="txt clear">
+          <label for="item-<%= item.id %>"><% unless item.images.blank? %><%= image_tag(item.images.first.url(:thumb)) %><% else %><%=image_tag('missing_thumb.jpg')%><% end %> <%= item.name %></label>
+        </li>
+        <li class="check" style="margin-top:5px;margin-left:5px;"><%= check_box_tag 'my_items[]', item.id, swap_has_item?(@swap, item), :id => "item-#{item.id}" %></li>
+        </div>
+      <% end %>
+    </ul>
+    <!--
+    <%= collection_select :my_items, :item_id, @my_swappable_items, :id, :name, {:include_blank => true}, {:id => 'my-select'} %>
+        <a href="#" id="select_mine">Add</a>
+    -->
+    <div class="clear"></div>
+    
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var my_id = <%= current_user.id %>;
+  var their_id = <%= them.id %>;
+  var items = [<%= @swap.items.collect{|i| "'#{i.id}'"}.join(', ') %> ];
+
+  function remove_swap_item(swap_item_id, item_id) {
+    var si_div = $('#swap-item-' + swap_item_id);
+    var hidden_tag = "<%= escape_javascript delete_swap_item_tag %>"
+
+    while (hidden_tag.indexOf("__index__") != -1) hidden_tag = hidden_tag.replace("__index__", swap_item_id);
+    $(si_div).html(hidden_tag)
+    items[$.inArray(item_id, items)] = null;
+  }
+
+  function select_mine() {
+    var collection = $('#my-select');
+    var items_div = $('#my-items');
+    var recipient_id = their_id;
+
+    add_item(collection, items_div, recipient_id);
+  }
+
+  function select_theirs() {
+    var collection = $('#their-select');
+    var items_div = $('#their-items');
+    var recipient_id = my_id;
+
+    add_item(collection, items_div, recipient_id);
+    return false;
+  }
+
+  function add_item(collection, items_div, recipient_id) {
+    var html = "<%= escape_javascript blank_swap_item %>";
+    var new_id = new Date().getTime();
+    var item = $(collection).find(':selected');
+    var item_id = $(item).val();
+    var item_name = $(item).text();
+
+    if ($.inArray(item_id, items) != -1) { alert('item already added'); return }
+
+    if (item_id == '') { return; }
+
+    while (html.indexOf("__index__") != -1) html = html.replace("__index__", new_id);
+    while (html.indexOf("__ITEM_NAME__") != -1) html = html.replace("__ITEM_NAME__", item_name);
+    while (html.indexOf("__ITEM_ID__") != -1) html = html.replace("__ITEM_ID__", item_id);
+    while (html.indexOf("__RECIPIENT_ID__") != -1) html = html.replace("__RECIPIENT_ID__", recipient_id);
+
+    items_div.append(html);
+    collection.val('');
+    items.push(item_id);
+  }
+
+  $(function() {
+    $('#select_mine').click(select_mine);
+    $('#select_theirs').click(select_theirs);
+  })
+
+</script>
+

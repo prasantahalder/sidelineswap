@@ -1,0 +1,64 @@
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :first_name, "First Name" %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :first_name %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :last_name, "Last Name" %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :last_name %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :street_1, "Address Line 1" %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :street_1 %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :street_2, "Address Line 2" %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :street_2 %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :city %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :city %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :state %>
+  </li>
+  <li class="inputfield">
+    <%= f.select :state, Carmen::states('US'), {:include_blank => true} %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :zip %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :zip, :size => 5 %>
+  </li>
+</ul>
+<ul class="forms">
+  <li class="txt">
+    <%= f.label :phone %>
+  </li>
+  <li class="inputfield">
+    <%= f.text_field :phone %>
+  </li>
+</ul>

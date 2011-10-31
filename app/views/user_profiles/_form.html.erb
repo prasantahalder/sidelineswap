@@ -1,0 +1,136 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for resource, :url => user_user_profile_path(enclosing_resource), :html => {:multipart => true} do |f| %>
+
+  <!-- image start -->
+  <div class="field"><br />
+    <ul class="forms">
+    <li class="txt">Hometown</li>
+    <li class="inputfield"><%= f.text_field :hometown %></li>
+    </ul>
+  </div>
+  <div class="field">
+    <ul class="forms">
+      <li class="txt">Schools</li><li class="inputfield">
+        <%= f.text_field :schools %>
+      </li></ul>
+  </div>
+  <!-- image end -->
+  <div class="clear"></div>
+
+  <!-- image start -->
+  <div class="field"><br />
+    <ul class="forms">
+    <li class="txt">Club Teams</li>
+    <li class="inputfield"><%= f.text_field :club_teams %></li>
+    </ul>
+  </div>
+  <div class="field">
+    <ul class="forms"><li class="txt">
+        <label for="item_price">Sports</label>
+      </li><li class="inputfield">
+        <%= f.text_field :sports %>
+      </li>
+    </ul>
+  </div>
+  <!-- image end -->
+  <div class="clear"></div>
+
+  <div class="field"><br />
+    <ul class="forms">
+    <li class="txt">Favorite Teams</li>
+    <li class="inputfield"><%= f.text_field :favorite_teams %></li>
+    </ul>
+
+  </div>
+  <div class="field">
+    <ul class="forms"><li class="txt">
+        <label for="item_price">Favorite Brand</label></li><li class="inputfield">
+        <%= f.text_field :favorite_brand %>
+      </li></ul>
+  </div>
+  <!-- image end -->
+  <div class="clear"></div>
+
+  <% f.fields_for :images do |image_form| %>
+    <% if resource.images.count == 0 || !image_form.object.new_record? %>
+    <div class="field"><br />
+      <ul class="forms">
+      <li class="txt">Active Picture</li>
+      <li class="inputfield"><%= image_tag(image_form.object.image.url(:thumb))%></li>
+      </ul>
+    </div>
+    <div class="field">
+      <ul class="forms"><li class="txt">
+        <%= image_form.label :_destroy, "Delete?" %>
+        <%= image_form.check_box :_destroy %>
+        </ul>
+    </div>
+    <div class="clear"></div>
+
+    <div class="field"><br />
+      <ul class="forms"><li class="txt">
+        <%= image_form.label :image, "Profile Picture" %>
+      </li>
+        <li class="txt"><%= image_form.file_field :image %></li></ul>
+
+    </div><div style="clear:both;"></div><br />
+    <% end %>
+  <% end %>
+
+	<ul class="forms clear">
+    <li class="txt">
+      <%= f.label :bio %>
+    </li><li class="inputfield">
+      <%= f.text_area :bio, :rows => 8, :cols => 50 %>
+    </li></ul>
+    
+  <div style="clear:both;"></div><br />
+  
+  <ul class="forms"><li class="txt"><%= f.submit resource.new_record? ? 'Create' : 'Update' %></li></ul>
+
+<% end %>
+
+<%= javascript_tag do %>
+  function handleSelect(text, id) {
+    $.ajax({
+      url: '/teams/'+id+'/short?obj=user_profile',
+      success: function(html) { $('#teams').prepend(html); }
+    });
+
+    $('#teamsearch')[0].value = 'Enter a team name here';
+  }
+
+  $(function(){
+    options = {
+      serviceUrl:'<%= ac_teams_path%>',
+      minChars:2,
+      onSelect: handleSelect
+    };
+    $('#teamsearch').autocomplete(options);
+    options = {
+      maxDate:'-14y',
+      yearRange:'-100:-14',
+      changeMonth: true,
+      changeYear: true
+
+    };
+    $('#user_profile_birth_date').datepicker(options);
+    $('#teamsearch')[0].focus(function(){this.value = ''});
+
+    <% unless resource.birth_date.blank? %>
+    $('#user_profile_birth_date').datepicker('setDate', '<%=resource.birth_date.strftime('%m/%d/%Y')%>');
+    <% end %>
+
+   });
+<% end %>

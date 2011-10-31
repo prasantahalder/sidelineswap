@@ -1,0 +1,5 @@
+<div class="teamitem">
+  <%= team.name %> (<%= team.country %>)
+  <%= hidden_field_tag "#{object_name}[team_id]", team.id %>
+  <a href="#" onclick="$(this).parent().detach();return false;">remove</a>
+</div>

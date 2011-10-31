@@ -1,0 +1,20 @@
+<!-- image start -->
+<div class="field">
+  <%= image_form.label :title %>
+  <%= image_form.text_field :title %>
+</div>
+<div class="field">
+  <%= image_form.label :image %>
+  <% if image_form.object.new_record? %>
+    <%= image_form.file_field :image %>
+  <% else %>
+    <%= link_to( image_tag(image_form.object.image.url(:thumb)), image_form.object.image.url(:original) ) %>
+  <% end %>
+</div>
+<% unless image_form.object.new_record? %>
+  <div class="field">
+    <%= image_form.label :_destroy, "Delete?" %>
+    <%= image_form.check_box :_destroy %>
+  </div>
+<% end %>
+<!-- image end -->

@@ -1,0 +1,182 @@
+
+<head>
+  <script type="text/javascript">
+function addMoreSize()
+{
+//document.getElementById("demo").innerHTML=addTextField();
+var d=document.getElementById("addsize");
+ d.style.display = "block";
+ var d1=document.getElementById("item_size");
+ d1.style.display = "none";
+         // d.innerHTML="";
+         
+}
+/*function hidenSize()
+{
+  alert("eeeeeeeeeeeeee");
+  var d=document.getElementById("addsize");
+         // d.innerHTML="";
+          d.style.display = "none";
+
+          
+}*/
+</script>
+</head>
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+
+			<label></label>
+<%= form_for_resource :html => {:multipart => true} do |f| %>
+  <%#*<ul class="forms"><li class="txt">%>
+      <p><label class="shipping_price"> Item Name </label>
+      <%= f.text_field :name, :class=>"name_item_three" %>
+    </p>
+ 
+  <%#*<p><label class="shipping_price">Shipping Price</label>%>
+      <%#= f.text_field :price %>
+    <%#*</p>%>
+  <p><label class="shipping_price">category</label>
+      &nbsp;&nbsp;&nbsp;<%= f.collection_select :category_id, Category.all, :id, :name, :class=>"name_item_three" %>
+    <%#*<li><label for="select" class="select">within</label>%>
+<%#*<select name="select" id="select" class="txt-categary">%>
+  <%#*<option value="All Categories">- All Categories -</option>%>
+  <%#*<option value="Baseball">Baseball</option>%>
+  <%#*<option value="Basketball">Basketball</option>%>
+  <%#*<option value="Football">Football</option>%>
+  <%#*<option value="Hockey">Hockey</option>%>
+  <%#*<option value="Lacrosse">Lacrosse</option>%>
+  <%#*<option value="Soccer">Soccer</option>%>
+  <%#*<option value="Wrestling">Wrestling</option>%>
+  <%#*<option value="Other">Other</option>%>
+<%#*</select></li>%>
+    </p>
+
+    <p><label class="shipping_price">Size</label></p>
+      &nbsp;&nbsp;&nbsp;<%= f.select(:size, "<option value=1>1</option>,<option value=2>2</option>,<option value=3>3</option>,<option value=4>4</option>,<option value=5>5</option>,<option value=6>6</option>,<option value=7>7</option>,<option value=8>8</option>,<option value=9>9</option>,<option value=10>10</option>,<option value=11>11</option>,<option value=12>12</option>,<option value=13>13</option>,<option value=14>14</option>")%>
+    <p id="demo"> <text type="text" onclick="addMoreSize()">Add More Size</text>
+
+    </p>
+    <div id="addsize" style="display: none;"><%= f.text_field :size, :class=>"price_add" %></div>
+
+    <p><label class="shipping_price">price</label>
+<%= f.text_field :price, :class=>"name_item_three" %></p>
+    <p>
+      <label class="shipping_price">Shipping price</label>
+      <%= f.text_field :shipping_price, :class=>"name_item_three" %>
+    </p>
+ 
+  
+  <%# if resource.new_record? %>
+    <%#*<div style="float:right;width:350px;margin-top:50px;border-left:1px solid #666666;">%>
+        <%#*<p style="padding-left:10px;">All gear has a story... What's yours?</p>%>
+		<%#*<p>&nbsp;</p>%>
+        <%#*<p style="padding-left:10px;"><strong>Sample Description:</strong></p>%>
+        <%#*<p style="padding-left:10px;">Size, Condition, Other details (ex. Pockets)</p>%>
+        <%#*<p style="padding-left:10px;">Looking to sell ($25) or Swap</p>%>
+      <%#*</li></ul></div>%>
+  <%# end %>
+    <p><label class="shipping_price">Description</label>
+        <%= f.text_area :description, :rows => 8, :cols => 50, :class=>"name_item_three_password" %>
+      </p>
+   
+  <div class="clear"></div>
+
+  <%= f.fields_for :images do |image_form| %>
+
+    <% unless image_form.object.new_record? %>
+      <div class="field">
+        <br />
+        <ul class="forms">
+          <li class="txt">Active Image</li>
+          <li class="inputfield"><%= image_tag(image_form.object.image.url(:thumb)) %></li>
+        </ul>
+        <div class="field">
+          <ul class="forms">
+            <li class="txt">
+              <%= image_form.label :_destroy, "Delete?" %>
+              <%= image_form.check_box :_destroy %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+    
+  <% end %>
+
+    
+   <h6>Upload image</h6>
+				<div class="form">
+    
+  <%= f.fields_for :images do |image_form| %>
+    <%= render :partial => 'image_form', :locals => {:image_form => image_form} %>
+  <% end %>
+  <br/>
+  
+  
+
+      <%= f.submit %></div>
+
+   
+  <br/>
+  
+  
+  
+<% end %>
+
+
+<%= javascript_tag do %>
+  function handleSelect(text, id) {
+  $.ajax({
+  url: '/teams/'+id+'/short?obj=user_profile&single=1',
+  success: function(html) { $('#team').html(html); }
+  });
+
+  $('#teamsearch')[0].value = 'Enter a team name here';
+  }
+
+  $(function(){
+  options = {
+  serviceUrl:'<%= ac_teams_path%>',
+  minChars:2,
+  onSelect: handleSelect
+  };
+  $('#teamsearch').autocomplete(options);
+  $('#teamsearch').focus(function(){this.value = ''});
+
+
+  });
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			

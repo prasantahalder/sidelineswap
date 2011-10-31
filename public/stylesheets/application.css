@@ -1,0 +1,18 @@
+/*
+
+body { font-family:sans-serif; }
+#header {width: 100%; background-color: #AAAAAA; border-bottom: solid 1px #444444; text-align: right; height:80px;}
+#header a {font-weight:bold; color: black;}
+#header div.title {width: 200px; float:left;}
+#footer {width: 100%; background-color: #AAAAAA; border-top: solid 1px #444444; text-align: center; height:30px;}
+#content {min-height: 600px;}
+
+#images-list { text-align: center; }
+#images-list div.imagesinner { width: 600px; margin: 0 auto; }
+#images-list div.image { width:120px; float:left;}
+.clear {clear:both;}
+div.pagination {clear:both;}
+
+*/
+
+#sort-links { display: inline; }

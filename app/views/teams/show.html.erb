@@ -1,0 +1,20 @@
+<div class="field">
+  <label>Name</label>
+  <%= resource.name %>
+</div>
+<div class="field">
+  <label>City</label>
+  <%= resource.city %>
+</div>
+<div class="field">
+  <label>State</label>
+  <%= resource.state %>
+</div>
+<div class="field">
+  <label>Country</label>
+  <%= resource.country %>
+</div>
+<!--
+<%= link_to 'Users who like this team', team_user_profiles_path(resource) %><br/>
+-->
+<%= link_to 'Items from this team', team_items_path(resource) %>

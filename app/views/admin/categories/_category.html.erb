@@ -1,0 +1,5 @@
+<tr>
+  <td><%= category.name %></td>
+  <td><%= category.items.count %></td>
+  <td><%= link_to 'show', admin_category_path(category) %> <%= link_to 'edit', edit_admin_category_path(category) %></td>
+</tr>

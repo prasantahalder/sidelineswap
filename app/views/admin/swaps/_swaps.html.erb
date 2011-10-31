@@ -1,0 +1,14 @@
+<%= paginate swaps %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Swap Party</th>
+    <th>Items</th>
+    <th>Created</th>
+    <th>Expires</th>
+    <th>Completed</th>
+  </tr>
+  <%= render :partial => 'swap', :collection => swaps %>
+
+</table>
+<%= paginate swaps %>

@@ -1,0 +1,10 @@
+<tr>
+  <td><%= link_to swap.name, admin_swap_path(swap) %></td>
+  <td><%= link_to swap.swap_parties[0].user, user_path(swap.swap_parties[0].user) %>
+    / <%= link_to swap.swap_parties[1].user, user_path(swap.swap_parties[1].user) %></td>
+  <td><%= swap.swap_items.count %></td>
+  <td><%= swap.created_at.localtime %></td>
+  <td><%= swap.expiration.localtime %></td>
+  <td><%= swap.completed ? "Yes" : "No" %></td>
+  <td><%= link_to 'view', admin_swap_path(swap) %></td>
+</tr>

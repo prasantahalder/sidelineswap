@@ -1,0 +1,33 @@
+<div class="content_sec">
+  <div class="col3">
+    <div class="col3_top">&nbsp;</div>
+    <div class="col3_center">
+      <% if @shipping_address.errors.any? %>
+        <div id="error_explanation" class="clear">
+          <h2><%= pluralize(@shipping_address.errors.count, "error") %> prohibited this from being saved:</h2>
+
+          <ul>
+            <% @shipping_address.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+
+      <% if @paypal_error %>
+        There was an error with PayPal, please try your request again. <b><%= @paypal_error %></b>
+      <% end %>
+
+      <h2 class="heading colr">Checkout</h2>
+      <p>Please confirm your shipping address</p>
+      <%= form_for :shipping_address do |f| %>
+        <%= render :partial => '/addresses/form_fields', :locals => {:f => f} %>
+      <div class="clear"></div>
+        <%= f.submit 'Pay Now' %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+    <div class="col3_botm">&nbsp;</div>
+  </div>
+</div>

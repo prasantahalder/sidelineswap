@@ -1,0 +1,71 @@
+<script type="text/javascript">
+function Show(divID)
+{
+	document.getElementById('divDescription'+divID).style.display='block';
+	
+}
+function Hide(divID)
+{
+document.getElementById('divDescription'+divID).style.display='none';
+}
+</script>
+
+
+  <div class="left-part-inner">
+    <!-- Column2 Section -->
+    <div class="user-profile">
+      <div class="slider"> <%= @user_profile.images.first.nil? ?  image_tag('missing_profile.jpg', :size=>'150x200',:class=>'img-left')  : image_tag(@user_profile.images.first.url(:thumb), :size=>'150x200',:class=>'img-left')%>
+        <h2><%= pretty_name || "Item Results" %> <br />
+          <em><%= @user_profile.hometown  %></em></h2>
+        <p><a href="#" data-tooltip="sticky2"><%= link_to 'Edit Profile', edit_user_user_profile_path(current_user.id) %></a><br />
+          User Rating: <span><img src="/images/bookmarks.png" alt=" " /> <img src="/images/bookmarks.png" alt=" " /> <img src="/images/bookmarks.png" alt=" " /> <img src="/images/bookmarks.png" alt=" " /> <img src="/images/bookmarks.png" alt=" " /> </span> (+73)<br />
+          <a href="#" data-tooltip="sticky3">Feedback</a></p>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <!--  <% if !current_user.nil? && current_user.id == params[:id].to_i %>
+      <p class="profile_edit" style="text-align:center;"><u><%= link_to 'Edit Profile', edit_user_user_profile_path(current_user.id) %></u> | <u><%= link_to 'Edit Personal Info', edit_user_path(current_user.id) %></u></p>
+	    <% end %>-->
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <div class="item-container-inner">
+      <div class="add-item"> <%= link_to  image_tag('/images/add-link.png')  , new_item_path  %> </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="item-container-inner">
+    <ul>
+      <% ind=0; current_user.items.each do |item| %>
+	<% if ind%4==0  %>
+    <div class="item-container-inner">
+    <ul>  		
+	<% end %>				
+<li ><div id="divDescription<%= ind%>" style="display:none" class="stickytooltip">
+                     	   <div class="tooltip-box">
+                        <div id="Div4" class="atip" >
+                        <h5><%= item.name %><br />
+                        <small><%= "#{item.user}'s locker" %></small></h5>
+                        <h6>Description:</h6>
+                        <p><%= item.description[0,200]%></p>
+                        <p class="link">Click Item for Details</p>
+                        </div>
+                        </div>
+                        <div class="stickystatus"></div>
+                        </div>
+  <%= link_to (item.images.empty?) ? image_tag('missing_list.jpg') : image_tag(item.images.first.url(:item_list)), item_path(item),  :onmouseover=>"Show('#{ind}')" ,:onmouseout=>"Hide('#{ind}')"%>
+ <br /><label><%= link_to item.name, item_path(item) %></label>
+ 
+</li>
+<% if ind%4==3  %>
+    
+    </ul>  		
+	<div class="clear"></div>
+			</div>
+	<% end %>
+ 	<% ind+=1; end %>
+
+      
+    
+  <div class="clear"></div>
+</div>

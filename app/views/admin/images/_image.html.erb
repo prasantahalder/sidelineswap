@@ -1,0 +1,6 @@
+<div class="image<% if (image_counter % 5) == 0 %> clear<% end %>">
+  <%= image.title %><br/>
+  <%= link_to image_tag(image.url(:thumb)), image.url, :title => image.title %><br/>
+  <%= link_to 'Source', polymorphic_path([:admin, image.attachable]) %>
+  <%= link_to 'Delete', admin_image_path(image), :method => :delete, :confirm => 'Are you sure?' %>
+</div>

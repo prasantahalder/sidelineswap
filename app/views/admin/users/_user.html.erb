@@ -1,0 +1,10 @@
+<tr>
+  <td><%= user.first_name %></td>
+  <td><%= user.last_name %></td>
+  <td><%= user.login %></td>
+  <td><%= user.login_count %></td>
+  <td><%= (user.current_login_at.nil?) ? 'never' : user.current_login_at.localtime %></td>
+  <td><%= user.items.count %></td>
+  <td><%= user.swaps.count %></td>
+  <td><%= link_to 'edit', edit_admin_user_path(user) %></td>
+</tr>

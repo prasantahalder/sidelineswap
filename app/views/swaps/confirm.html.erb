@@ -1,0 +1,32 @@
+<% unless @party && @party.confirmed == false %>
+  <%=javascript_tag do %>
+    var derf = false;
+$(function() {
+    $('#comment').val('Please tell us why?');
+    $('#comment').hide();
+    $("input[name='confirmed']").change(function(e) {
+      if($('input[name=confirmed]:checked').val() == '1') {
+        $('#comment').hide();
+      } else {
+        $('#comment').show();
+      }
+    });
+});
+  <% end %>
+<% end %>
+<% if @party && @party.confirmed %>
+  Thanks for using Sideline Swap!  
+<% else if @party %>
+  Your response has been forwarded to the administrators
+<% else %>
+  Have you received everything you hoped for?
+
+  <%= form_tag do %>
+    <label>Yep <%= radio_button_tag :confirmed, 1 %></label> 
+    <label>Nope <%= radio_button_tag :confirmed, 0 %></label>
+    <textarea id='comment' name='comment' onclick='if(!derf){$(this).val("");derf=true;};', style='display:none;'>
+    </textarea>
+    <%= submit_tag %>
+  <% end %>
+<% end %>
+<% end %>

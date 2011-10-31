@@ -1,0 +1,76 @@
+      <div class="content_sec">
+  <div class="col3">
+    <div class="col3_top">&nbsp;</div>
+    <div class="col3_center">
+      <h2 class="heading-incoming colr"><cufon style="width: 49px; height: 20px;" alt="Incoming Offers" class="cufon cufon-canvas"><canvas style="width: 60px; height: 21px; top: 0px; left: 0px;" height="21" width="60"></canvas><cufontext>Incoming Offers</cufontext></cufon></h2><h2 class="heading-outgoing colr"><cufon style="width: 49px; height: 20px;" alt="Outgoing Offers" class="cufon cufon-canvas"><canvas style="width: 60px; height: 21px; top: 0px; left: 0px;" height="21" width="60"></canvas><cufontext>Outgoing Offers</cufontext></cufon></h2>
+      
+ <%= render :partial => 'swaps', :locals => {:swaps => resources}  %>
+
+    <div class="clear"></div>
+<script type="text/javascript">
+  var my_id = 2;
+  var their_id = 3;
+  var items = [ ];
+
+  function remove_swap_item(swap_item_id, item_id) {
+    var si_div = $('#swap-item-' + swap_item_id);
+    var hidden_tag = "<input id=\"_swap_swap_items_attributes___index____destroy\" name=\"[swap][swap_items_attributes][__index__][_destroy]\" type=\"hidden\" value=\"1\" />"
+
+    while (hidden_tag.indexOf("__index__") != -1) hidden_tag = hidden_tag.replace("__index__", swap_item_id);
+    $(si_div).html(hidden_tag)
+    items[$.inArray(item_id, items)] = null;
+  }
+
+  function select_mine() {
+    var collection = $('#my-select');
+    var items_div = $('#my-items');
+    var recipient_id = their_id;
+
+    add_item(collection, items_div, recipient_id);
+  }
+
+  function select_theirs() {
+    var collection = $('#their-select');
+    var items_div = $('#their-items');
+    var recipient_id = my_id;
+
+    add_item(collection, items_div, recipient_id);
+    return false;
+  }
+
+  function add_item(collection, items_div, recipient_id) {
+    var html = "<div class=\"swap-item\" id=\"swap-item-__index__\">\n  <span class=\"itemname\">__ITEM_NAME__<\/span>\n  <input id=\"swap_swap_items_attributes___index___item_id\" name=\"swap[swap_items_attributes][__index__][item_id]\" type=\"hidden\" value=\"__ITEM_ID__\" />\n  <input id=\"swap_swap_items_attributes___index___recipient_id\" name=\"swap[swap_items_attributes][__index__][recipient_id]\" type=\"hidden\" value=\"__RECIPIENT_ID__\" />\n  <a href=\"#\" onclick=\"remove_swap_item(\'__index__\', \'__ITEM_ID__\')\">remove<\/a>\n<\/div>\n";
+    var new_id = new Date().getTime();
+    var item = $(collection).find(':selected');
+    var item_id = $(item).val();
+    var item_name = $(item).text();
+
+    if ($.inArray(item_id, items) != -1) { alert('item already added'); return }
+
+    if (item_id == '') { return; }
+
+    while (html.indexOf("__index__") != -1) html = html.replace("__index__", new_id);
+    while (html.indexOf("__ITEM_NAME__") != -1) html = html.replace("__ITEM_NAME__", item_name);
+    while (html.indexOf("__ITEM_ID__") != -1) html = html.replace("__ITEM_ID__", item_id);
+    while (html.indexOf("__RECIPIENT_ID__") != -1) html = html.replace("__RECIPIENT_ID__", recipient_id);
+
+    items_div.append(html);
+    collection.val('');
+    items.push(item_id);
+  }
+
+  $(function() {
+    $('#select_mine').click(select_mine);
+    $('#select_theirs').click(select_theirs);
+  })
+
+</script>
+
+
+    </div>
+    <div class="clear"></div>
+    <div class="col3_botm">&nbsp;</div>
+  </div>
+</div>
+      <div class="clear"></div>
+      <!-- end yield -->

@@ -1,0 +1,84 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for resource, :url => admin_user_profile_path(resource),  :html => {:multipart => true} do |f| %>
+  <div class="field">
+    <%= f.label :birth_date %>
+    <%= f.text_field :birth_date %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %>
+    <%= f.select :gender, ['M', 'F'], {:include_blank => true} %>
+  </div>
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :website %>
+    <%= f.text_field :website %>
+  </div>
+  <div class="field">
+    <%= f.label :bio %>
+    <%= f.text_area :bio, :class => "mceEditor" %>
+  </div>
+
+  <h3>Images</h3>
+
+  <% f.fields_for :images do |image_form| %>
+    <%= render :partial => 'image_form', :locals => {:image_form => image_form} %>
+  <% end %>
+
+  <h3>Teams</h3>
+  <div id="teams">
+    <% resource.teams.each do |team| %>
+      <%= render :partial => '/teams/short', :locals => {:team => team, :object_name => 'user_profile'} %>
+    <% end %>
+    <%= text_field_tag 'search[name]', 'Enter a team name here', :id => 'teamsearch', :size => 40 %>
+  </div>
+  <br/>
+  <%= f.submit resource.new_record? ? 'Create' : 'Update' %>
+<% end %>
+
+<%= javascript_tag do %>
+  function handleSelect(text, id) {
+    $.ajax({
+      url: '/teams/'+id+'/short?obj=user_profile',
+      success: function(html) { $('#teams').prepend(html); }
+    });
+
+    $('#teamsearch')[0].value = 'Enter a team name here';
+  }
+
+  $(function(){
+    options = {
+      serviceUrl:'<%= ac_teams_path%>',
+      minChars:2,
+      onSelect: handleSelect
+    };
+    $('#teamsearch').autocomplete(options);
+    options = {
+      maxDate:'-14y',
+      yearRange:'-100:-14',
+      changeMonth: true,
+      changeYear: true
+
+    };
+    $('#user_profile_birth_date').datepicker(options);
+    $('#teamsearch')[0].focus(function(){this.value = ''});
+
+    <% unless resource.birth_date.blank? %>
+    $('#user_profile_birth_date').datepicker('setDate', '<%=resource.birth_date.strftime('%m/%d/%Y')%>');
+    <% end %>
+
+   });
+<% end %>

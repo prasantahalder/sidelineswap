@@ -1,0 +1,17 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation" class="clear">
+    <h2><%= pluralize(resource.errors.count, "error") %> prohibited this from being saved:</h2>
+
+    <ul class="forms">
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="clear"></div>
+<% end %>
+
+<%= form_for_resource do |f|  %>
+  <%= render :partial => 'form_fields', :locals => {:f => f} %>
+  <%= f.submit %>
+<% end %>

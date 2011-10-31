@@ -1,0 +1,13 @@
+<%= paginate @teams %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Country</th>
+    <th>Items</th>
+    <th>Profiles</th>
+  </tr>
+  <%= render :partial => 'team', :collection => @teams %>
+</table>
+<%= paginate @teams %>

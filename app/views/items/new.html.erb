@@ -1,0 +1,43 @@
+
+      <%#*<div class="content_sec">%>
+  <%#*<div class="col3">%>
+    <div class="col3_top">&nbsp;</div>
+    <div class="col3_center">
+      
+		<div class="add_in_item">
+			<h5>ADD AN ITEM</h5>
+                        <br/><br/>
+<%= render :partial => 'form' %>      
+
+<script type="text/javascript">
+//<![CDATA[
+
+  function handleSelect(text, id) {
+  $.ajax({
+  url: '/teams/'+id+'/short?obj=user_profile&single=1',
+  success: function(html) { $('#team').html(html); }
+  });
+
+  $('#teamsearch')[0].value = 'Enter a team name here';
+  }
+
+  $(function(){
+  options = {
+  serviceUrl:'/teams/ac',
+  minChars:2,
+  onSelect: handleSelect
+  };
+  $('#teamsearch').autocomplete(options);
+  $('#teamsearch').focus(function(){this.value = ''});
+
+
+  });
+
+//]]>
+</script>
+    </div>
+    <div class="clear"></div>
+    <div class="col3_botm">&nbsp;</div>
+  </div>
+
+      <div class="clear"></div>

@@ -1,0 +1,33 @@
+
+<div class="incoming" style="float:left;width:450px;"><div id="incoming-list">
+<% 
+	f = false
+	swaps.reverse_each do |s| 
+	if s.swap_parties.first.user  != current_user
+		f=true
+%>
+	<%= render :partial => 'incommingswap',  :locals => {:swap => s} %>
+	<% end %>
+<% end %>
+<% if !f %>
+	You have no incoming offers
+	<% end %>
+</div><div class="clear"></div></div>
+  <div class="outgoing" style="float:left;width:450px;margin-left:40px;"><div id="outgoing-list">
+<% swaps.reverse_each do |s| 
+	if s.swap_parties.first.user.id == current_user.id
+%>
+	<%= render :partial => 'outgoingswap',  :locals => {:swap => s} %>
+	<% end %>
+<% end %>
+</div><div class="clear"></div></div>
+
+
+
+<% if swaps.blank? %>
+
+  You have no offers yet.  <br/><br/>
+
+  Why don't you a look at the <%= link_to 'available items', items_path %> and see if there is someone you want to trade with?
+
+<% end %>

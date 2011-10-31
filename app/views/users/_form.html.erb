@@ -1,0 +1,96 @@
+<div class="static">
+
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+<div class="reg-top">
+	<div class="registration-form-1">
+    <ul class="forms">
+      <li class="txt">
+        <%= f.label :paypal_email %>
+        
+      </li>
+      <li class="inputfield">
+    <%= f.text_field :paypal_email %>
+  </li>
+     </ul>
+     <ul class="forms">
+     <li class="txt">
+        <%= f.label :first_name %>
+      </li>
+     <li class="inputfield">
+        <%= f.text_field :first_name %>
+      </li>
+    </ul>
+    <ul class="forms">
+      <li class="txt">
+        <%= f.label :last_name %>
+      </li>
+      <li class="inputfield">
+        <%= f.text_field :last_name %>
+      </li>
+    </ul>
+    <% if f.object.new_record? %>
+      <ul class="forms">
+        <li class="txt">
+          <%= f.label :login %>
+        </li>
+        <li class="inputfield">
+          <%= f.text_field :login %>
+        </li>
+      </ul>
+    <% end %>
+    <ul class="forms">
+      <li class="txt">
+        <%= f.label :email %>
+      </li>
+      <li class="inputfield">
+        <%= f.text_field :email %>
+      </li>
+    </ul>
+    <ul class="forms">
+      <li class="txt">
+        <%= f.label :password, f.object.new_record? ? nil : "Change password" %>
+      </li>
+      <li class="inputfield">
+        <%= f.password_field :password %>
+      </li>
+    </ul>
+    <ul class="forms">
+      <li class="txt">
+        <%= f.label :password_confirmation %>
+      </li>
+      <li class="inputfield">
+        <%= f.password_field :password_confirmation %>
+      </li>
+    </ul>
+	<div class="clear"></div>
+	</div>
+	<div class="registration-form-1-right">
+<p>Do You run a team </p>
+<p>or charity?</p>
+<p><%= link_to "Create Sideline Store", store_new_path %></p>
+	</div>
+<div class="clear"></div>
+</div>
+
+    <h3>Shipping Address</h3>
+	<div class="registration-form-2">
+    <%= f.fields_for :shipping_address do |s_form| %>
+      <%= render :partial => 'addresses/form_fields', :locals => {:f => s_form} %>
+    <% end %>
+	</div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

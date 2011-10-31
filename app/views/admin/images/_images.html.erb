@@ -1,0 +1,5 @@
+<%= paginate @images %>
+<div class="imagesinner">
+  <%= render :partial => 'image', :collection => @images %>
+</div>
+<%= paginate @images %>

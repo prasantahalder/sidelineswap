@@ -1,0 +1,125 @@
+<div class="mid-part">
+<div class="locker">
+<div class="row">
+  <div class="locker-left">
+    <div class="slider-demo">
+      <div class="big-images">
+        <% if @item.images.blank? %>
+        <%= image_tag('missing_detail.jpg') %> <a rel="example_group" href="<%= image_tag('missing_detail.jpg') %>" title="missing"  >&nbsp;</a>
+        <% else %>
+        <% inx=0;
+		@item.images.each do |image,i| %>
+		 
+        <% if inx==0 %>
+		<%=  image_tag(image.image.url(:item_detail),:id=>"big-img-hover")  %> <a rel="example_group" href="<%= image.image.url(:original)%>" title="<%= image.title %>"  >&nbsp;</a>
+        	 
+		<% end %> 
+	<% inx+=1 end %>
+        <% end %>
+      </div>
+      <div class="thambnail">
+        <ul>
+          <% if @item.images.blank? %>
+          <li><a href="#"  ><%= image_tag('missing_thumb.jpg') %></a></li>
+          <% end %>
+          <% @item.images.each do |image| %>
+          <li><a href="#" onmouseover="javascript:document.getElementById('big-img-hover').src='<%=  image.image.url(:item_detail) %>';"  ><%=  image_tag(image.image.url(:thumb) ) %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="locker-right">
+    <div class="offter-blok">
+      <div class="top-con">
+        <h4><%= @item.name%></h4>
+        <h5>Category: <%= @item.category%></h5>
+        <p>
+          <em>from <a href="<%= locker_path(@item.locker.id) %>"><u><%= @item.user%>'s Locker</u></a></em>
+        </p>
+        <h6>Description:</h6>
+        <div style="height:180px; overflow:auto;"> <%= @item.description %></div>
+        <div class="clear"></div>
+      </div>
+      <div class="bot-con">
+        <div class="buy-amo"><%= number_to_currency @item.price %></div>
+        <div class="left">Shipping Price : <%= number_to_currency @item.price %></div>
+        <div class="right"><a href="<%= new_user_swap_path(@item.user) %>?item=<%=@item.id%>">Buy Now</a> </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="row">
+<div class="locker-left">
+<div class="social-links">
+  <ul>
+    <li>
+      <input name="" type="image" src="/images/facebook1.png" />
+    </li>
+    <li>
+      <input name="" type="image" src="/images/like.png" />
+    </li>
+    <li>
+      <input name="" type="image" src="/images/tweet.png" />
+    </li>
+    <li>
+      <input name="" type="image" src="/images/email.png" />
+    </li>
+    <li>
+      <input name="" type="image" src="/images/plus1.png" />
+    </li>
+  </ul>
+  <div class="clear"></div>
+</div>
+<div class="comment-blok">
+<h4>COMMENTS</h4>
+<div class="comments">
+<ul>
+<% @item.item_comments do |comment| %>
+<li>
+  <div class="comm-container">
+    <div class="images"><img src="../images/com-1.jpg" alt=" " /> </div>
+    <div class="text-con">
+      <p> <a href="#"><u><%= comment.user %></u></a> <%= comment.comment %> </p>
+      <p><em></em></p>
+    </div>
+    <br class="clear" />
+  </div>
+</li>
+</ul>
+<% end %>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="locker-right">
+  <div class="item-con-dis">
+    <h4>More From <%= @item.user %>'s locker</h4>
+    <ul class="item-dis">
+      <% more_items = Array.wrap(@item.locker.try(:items)).take(4) %>
+      <% more_items.each do |item| %>
+      <li >
+        <% if item.images.blank? %>
+        <%= link_to image_tag('missing_thumb.jpg'), item %>
+        <% else %>
+        <%= link_to image_tag(item.images.first.url(:thumb)), item %>
+        <% end %>
+        <br />
+        <label><%= link_to item.name, item %></label>
+      </li>
+      <% end %>
+    </ul>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>

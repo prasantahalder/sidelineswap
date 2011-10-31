@@ -1,0 +1,21 @@
+<h1>Update your password</h1>
+
+<p>Please enter the new password below and then press "Update Password".</p>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag password_reset_path, :method => :put do %>
+  <%= label_tag :password %> <%= password_field_tag :password %>
+  <%= label_tag :password_confirmation %> <%= password_field_tag :password_confirmation %>
+  <%= submit_tag "Update Password" %>
+<% end %>

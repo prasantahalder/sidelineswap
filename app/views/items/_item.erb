@@ -1,0 +1,30 @@
+<% if false %>
+<tr>
+  <td><%= link_to item.name, item_path(item) %></td>
+  <td><%= number_to_currency item.price %></td>
+  <td><%= item.weight_lbs %></td>
+  <td><%= link_to item.category, category_items_path(item.category) %></td>
+  <td><%= link_to item.locker, locker_path(item.locker) %></td>
+  <td><%= link_to item.user, user_user_profile_path(item.user) %></td>
+  <td><%= item.available %></td>  
+  <td><%= item.hits %></td>
+  <td><%= item.last_hit.localtime unless item.last_hit.nil? %></td>
+</tr>
+<% end %>
+ 						
+<li ><div id="divDescription<%= type%><%= ang%>" style="display:none" class="stickytooltip">
+                     	   <div class="tooltip-box">
+                        <div id="Div4" class="atip" >
+                        <h5><%= item.name %><br />
+                        <small><%= "#{item.user}'s locker" %></small></h5>
+                        <h6>Description:</h6>
+                        <p><%= item.description%></p>
+                        <p class="link">Click Item for Details</p>
+                        </div>
+                        </div>
+                        <div class="stickystatus"></div>
+                        </div>
+  <%= link_to (item.images.empty?) ? image_tag('missing_list.jpg') : image_tag(item.images.first.url(:item_list)), item_path(item),  :onmouseover=>"Show('#{type}#{ang}')" ,:onmouseout=>"Hide('#{type}#{ang}')"%>
+ <br /><label><%= link_to item.name, item_path(item) %></label>
+ 
+</li>

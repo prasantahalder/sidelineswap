@@ -1,0 +1,20 @@
+<div class="item-show">
+  <h2><%= @item.name %></h2>
+  <div><%= label_tag :price %> <%= number_to_currency @item.price %></div>
+  <div><%= label_tag :weight %> <%= @item.weight_lbs %></div>
+  <div><%= label_tag :category %> <%= link_to @item.category, admin_category_items_path(@item.category) %></div>
+  <div><%= label_tag :locker %> <%= link_to @item.locker, admin_locker_items_path(@item.locker) %></div>
+  <div><%= label_tag :user %> <%= link_to @item.user, admin_user_path(@item.user) %></div>
+  <h2>Images</h2>
+  <% if @item.images.blank? %>
+    <i>No Images</i>
+  <% else %>
+    <% @item.images.each do |image| %>
+      <div class="item-image">
+        <%= link_to( image_tag(image.image.url(:thumb)), image.image.url(:original) ) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to 'edit', edit_admin_item_path(@item) %>

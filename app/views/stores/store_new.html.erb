@@ -1,0 +1,63 @@
+
+
+	<div class="mid-part">
+		<div class="add_in_item">
+			<h5>STORE REGISTRATION (1 OF 2)</h5>
+			<h6>Account Info</h6>
+                        <% form_tag store_create_path do %>
+			<div>
+			  <div class="form_registration">
+			<p><label class="shipping_price">First Name</label><%= text_field :address, :first_name,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Last Name</label><%= text_field :address, :last_name ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Organization Name</label><%= text_field :store, :organizationname ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Username</label><%= text_field :user, :login ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Email</label><%= text_field :user, :email ,:class=>"name_item" %></p>
+                        <p><label class="shipping_price">Password</label><%= password_field :user, :password ,:class=>"name_item" %></p><p style="clear:both;"></p>
+			<p><label class="shipping_price">Verify Password</label><%= password_field :user, :password_confirmation ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Paypal Email</label><%= text_field :user, :paypal_email ,:class=>"name_item" %></p>
+			</div>
+			<br class="clear" />
+			</div>
+			<h6>Shipping Info</h6>
+			<div class="Shipping_Info">
+
+				<div class="phone_num"><p><label class="shipping_price_city_left">Address</label><%= text_field :address, :street_1,:class=>"name_item_city" %></p>
+				  <p><label class="shipping_price_city_left">Address 2</label><%= text_field :address, :street_2 ,:class=>"name_item_city" %></p>
+				<p><label class="shipping_price_city_left">City</label><%= text_field :address, :city ,:class=>"name_item_city" %></p>
+				</div>
+				<div class="phone_num_2"><p><label class="shipping_price_city">Phone Num*</label><%= text_field :address, :phone ,:class=>"name_item_city" %></p>
+				  <p><label class="shipping_price_city">State</label>    <%= select :address,:state, Carmen::states('US'), {:include_blank => true},:class=>"name_item_city" %>
+</p>
+				<p><label class="shipping_price_city">Zip</label><%= text_field :address, :zip ,:class=>"name_item_city" %></p>
+				</div>
+				<br class="clear" />
+				<%= image_submit_tag ('../images/continue_but.png'),:style=>"float:right;"  %>
+				<br class="clear" />
+		  </div>
+			<br class="clear" />
+<%end%>
+		</div>
+
+	  <div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+<%#*</div>%>
+<%#*<div class="footer-container">%>
+	<%#*<div class="footer-inner">%>
+		<%#*<ul>%>
+			<%#*<li><a href="#">Home</a></li>%>
+			<%#*<li><a href="#">About Us</a></li>%>
+			<%#*<li><a href="#">Help</a></li>%>
+			<%#*<li><a href="#">Shipping & Payments</a></li>%>
+			<%#*<li><a href="#">Terms of Use</a></li>%>
+			<%#*<li><a href="#">Privacy Policy</a></li>%>
+			<%#*<li><a href="#">Contact</a></li>%>
+		<%#*</ul>%>
+		<%#*<ul>%>
+			<%#*<li>Copyright &copy; 2011 SidelineSwap, Inc. All Rights Reserved</li>%>
+		<%#*</ul>%>
+		<%#*<div class="clear"></div>%>
+	<%#*</div>%>
+<%#*</div>%>
+<%#*</body>%>
+<%#*</html>%>

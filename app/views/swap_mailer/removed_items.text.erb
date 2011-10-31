@@ -1,0 +1,14 @@
+The following <%= pluralize(@items.count, "item") %> have been removed from your swap
+as they are no longer available:
+
+<% @items.each do |item| %>
+  <%= item.name %>
+<% end %>
+
+To view your swap, please click the link below:
+
+<%= @swap_url %>
+
+Sincerely,
+
+Sideline Swap

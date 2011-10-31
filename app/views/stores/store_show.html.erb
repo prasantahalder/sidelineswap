@@ -1,0 +1,92 @@
+<head>
+  <script type="text/javascript">
+    function Show(divID)
+    {
+      document.getElementById('divDescription'+divID).style.display='block';
+    }
+    function Hide(divID)
+    {
+      document.getElementById('divDescription'+divID).style.display='none';
+    }
+
+<%#*function Show(divID)%>
+<%#*{%>
+<%#*for(i=1;i<=10;i++)%>
+<%#*{%>
+<%#*document.getElementById('divDescription'+i).style.display='none';%>
+<%#*}%>
+<%#*document.getElementById('divDescription'+divID).style.display='block';%>
+
+
+<%#*}%>
+<%#*function Hide(divID)%>
+<%#*{%>
+
+<%#*document.getElementById('divDescription'+divID).style.display='none';%>
+<%#*}%>
+  </script>
+</head>
+
+
+  <div class="left-part-inner">
+
+    <div class="store-profile">
+      <div class="slider">
+        <h2><%= @store.organizationname %><br />
+          <em><%= @store.user.user_profile.location %></em>,
+          <%= @store.address.state %>
+<%#= image_tag @store.attachable.url(:thumb) %>
+        </h2>
+<%#*<img src="images/img-4.jpg" alt="Sideline Swap" width="324" height="102" class="img-left" />%>
+        <% if current_user.blank? %>
+          <p><a href="#" onmouseover="Show(1)" onmouseout="Hide(1)">View full profile</a> <div id="divDescription1" style="display:none" class="stickytooltip">
+            <div class="tooltip-box">
+              <div id="Div2" class="atip">
+                <label><b>Established In: </b></label>
+                <%= @store.established_in %><br /><br/>
+                <label><b>Gear Designed By: </b></label>
+                <%= @store.gear_designed_by %><br/><br/>
+                <label><b>Website: </b></label>
+                <%= @store.user.user_profile.website %><br/><br/>
+                <label><b>Cause: </b></label>
+                <%= @store.cause %>       <br/>
+                <%#= image_tag @store.user.images.photo.url %>
+              <% else %>
+                <div class="stickytooltip"><%= link_to "Edit Profile",store_edit_profile_path %></div>
+                
+              <% end %>
+            </div>
+          </div>
+
+          <div class="stickystatus"></div>
+        </div><br />
+        User Rating: <span><img src="/images/bookmarks.png" alt=" " />
+          <img src="/images/bookmarks.png" alt=" " />
+          <img src="/images/bookmarks.png" alt=" " />
+          <img src="/images/bookmarks.png" alt=" " />
+          <img src="/images/bookmarks.png" alt=" " /> </span>
+					(+73)<br />
+        <a href="#">Feedback</a></p>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+
+    <div class="item-container">
+
+      <ul>
+        <% if current_user.blank? %>
+        <% @featured_items.each_index do |i|  %>
+          <%= render :partial => '/items/item', :locals => {:item => @featured_items[i], :last => ((i+1) % 4 == 0) ,:ang=> i,:type=>"fd"} %>
+        <% end %>
+        <% else %>
+        <%= link_to image_tag("../images/add-link.png"), new_item_path %>
+        <% end %>
+      </ul>
+    </div>
+
+
+    <div class="clear"></div>
+  </div>
+
+

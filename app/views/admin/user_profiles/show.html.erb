@@ -1,0 +1,41 @@
+<% if resource.blank? %>
+  This user has not created a profile yet!<br/>
+
+  <% if enclosing_resource == current_user %>
+    <%= link_to 'Create a profile now!', new_user_user_profile_path(enclosing_resource) %>
+  <% end %>
+<% else %>
+  <div class="user-profile-full">
+    <h2><%= resource.user.login %>'s Profile</h2>
+    <div class="field">
+      <%= label_tag 'Age' %> <%= resource.age || "Not Supplied" %>
+    </div>
+    <div class="field">
+      <%= label_tag 'Gender' %> <%= resource.gender || "Not Supplied" %>
+    </div>
+    <div class="field">
+      <%= label_tag 'Location' %> <%= resource.location || "Not Supplied" %>
+    </div>
+    <div class="field">
+      <%= label_tag 'Website' %> <%= (resource.website.blank?) ?  "Not Supplied" : link_to(resource.website, resource.website, { :rel => 'nofollow', :target => "_blank" })%>
+    </div>
+    <h2>Bio</h2>
+    <div class="bio">
+      <%= raw resource.bio %>
+    </div>
+    <h2>Images</h2>
+    <div class="images">
+      <% resource.images.each do |image| %>
+        <!-- <%= image.id %> -->
+        <%= link_to( image_tag(image.url(:thumb), :title => image.title), image.url(:original) ) %>
+      <% end %>
+
+      <h2>Teams</h2>
+        <%= render :partial => 'teams/team', :collection => resource.teams %>
+    </div>
+  </div>
+  
+  <% if enclosing_resource == current_user %>
+    <%= link_to 'Edit', edit_user_user_profile_path(enclosing_resource) %>
+  <% end %>
+<% end %>

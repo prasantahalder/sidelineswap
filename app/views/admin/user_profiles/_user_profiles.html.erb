@@ -1,0 +1,22 @@
+<%= paginate @user_profiles %>
+<table>
+  <tr>
+    <th>
+      User
+    </th>
+    <th>
+      Location
+    </th>
+    <th>
+      Age
+    </th>
+    <th>
+      Bio
+    </th>
+    <th>
+      Last Updated
+    </th>
+  </tr>
+  <%= render :partial => 'user_profile', :collection => resources %>
+</table>
+<%= paginate @user_profiles %>

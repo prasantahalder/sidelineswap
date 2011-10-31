@@ -1,0 +1,49 @@
+<h2><%= @swap.name || 'Swap' %></h2>
+<h3>Swap Details</h3>
+
+<table>
+  <tr>
+    <td>Created</td>
+    <td><%= @swap.created_at.localtime %></td>
+  </tr>
+  <tr>
+    <td>Expiration</td>
+    <td><%= @swap.expiration.localtime %></td>
+  </tr>
+  <tr>
+    <td>Extend Expiration</td>
+    <td>
+      <%= form_tag extend_swap_path(@swap), :method => :post do |f|%>
+        <%= select_tag :days, options_for_select((1..14).collect{|i|[pluralize(i, 'Day'), i]}) %>
+        <%= submit_tag :Extend%>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Completed</td>
+    <td><%= @swap.completed ? "Yes" : "No" %></td>
+  </tr>
+  <tr><td colspan="2"><h3>Parties</h3></td></tr>
+  <% @swap.swap_parties.each do |p| %>
+    <tr>
+      <td><%= link_to p.user, user_path(p.user) %></td>
+      <td><%= p.response_human %><% unless p.responded_at.nil?%> @ <%= p.responded_at.localtime %><% end %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>Items in this swap</h3>
+<table>
+  <tr>
+    <th>Item Name</th>
+    <th>Value</th>
+    <th>Recipient</th>
+  </tr>
+  <% @swap.swap_items.each do |si| %>
+    <tr>
+      <td><%= link_to si.item.name, item_path(si.item) %></td>
+      <td><%= (si.item.price.nil?) ? "Not Specified" : number_to_currency(si.item.price) %></td>
+      <td><%= link_to si.recipient user_path(si.recipient) %></td>
+    </tr>
+  <% end %>
+</table>

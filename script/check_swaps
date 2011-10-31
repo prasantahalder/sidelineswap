@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/boot'
+require File.dirname(__FILE__) + '/../config/environment'
+c=0
+e=0
+
+#go through offers that have not been accepted, email every 3 days, if its 14 days cancel the swap and email letter
+Swaps.find(:all, :conditions => ["agreed = ? and expiration >= ?", 0, (Time.zone.now)]).each do |s|
+	SwapPartyMailer.expired(s.swap_parties.first, s.swap_parties.last)
+    if s.destroy
+      c += 1
+    else
+      e += 1
+    end
+  end
+Swaps.find(:all, :conditions => ["agreed = ? and expiration <= ?", 0, (Time.zone.now)]).each do |s|
+    t = distance_of_time_in_words(s.created_at, Time.zone.now)
+    if t == "about 3 days" || t== "about 6 days" || t== "about 9 days"
+      #send proper email
+      if s.is_cash_offer?
+        SwapPartyMailer.acceptedoffer_cash(s.swap_parties.last, s.swap_parties.first)
+      else
+        SwapPartyMailer.acceptedoffer(s.swap_parties.last, s.swap_parties.first)
+	  end
+	
+      c += 1
+    else
+      e += 1
+    end
+  end
+
+#got through accepted offers that are cash offers that are accepted but unpaid. if oder than 14 days kill it
+Swaps.find(:all, :conditions => ["agreed = ? and expiration >= ?", 1, (Time.zone.now)]).each do |s|
+  if s.payments.successful != 1
+    s.destroy
+    #send email that swap was cancelled for non pay
+    SwapPartyMailer.nopaycancel(s.swap_parties.first, s.swap_parties.last)
+  end
+end
+

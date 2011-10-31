@@ -1,0 +1,87 @@
+<div class="content_sec">
+  <div class="col3">
+    <div class="col3_top">&nbsp;</div>
+    <div class="col3_center">
+      <h2 class="heading colr"><%= @swap.name || 'Offer' %></h2>
+      <h3>Offer Details</h3>
+      <!--
+      <% if @swap.can_update? %><%= link_to 'edit', edit_user_swap_path(other_party(@swap).user, @swap) %><% end %>
+      -->
+      
+      <% if @swap.can_withdraw? %><%= link_to 'withdraw offer', user_swap_path(other_party(@swap).user, @swap), :confirm => 'Are you sure?', :method => :delete %><% end %>
+      
+      <table>
+        <tr>
+          <td>Created</td>
+          <td><%= @swap.created_at.localtime %></td>
+        </tr>
+        <tr>
+          <td>Expiration</td>
+          <td><%= @swap.expiration.localtime %></td>
+        </tr>
+        <% if @swap.can_update? %>
+          <tr>
+            <td>Extend Expiration</td>
+            <td>
+              <%= form_tag extend_swap_path(@swap), :method => :post do |f|%>
+                <%= select_tag :days, options_for_select((1..14).collect{|i|[pluralize(i, 'Day'), i]}) %>
+                <%= submit_tag :Extend%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>Agreed</td>
+          <td><%= @swap.agreed ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+          <td>Completed</td>
+          <td><%= @swap.completed ? "Yes" : "No" %></td>
+        </tr>
+        <tr><td colspan="2"><h3>Parties</h3></td></tr>
+        <% @swap.swap_parties.each do |p| %>
+          <tr>
+            <td><%= link_to p.user, user_path(p.user) %></td>
+            <% if p.user == current_user and p.response == 0 %>
+              <td>
+                <%= link_to 'Accept', accept_swap_path(@swap), :confirm => 'Are you sure you wish to Accept this offer?', :method => :post %>
+                <%= link_to 'Decline', decline_swap_path(@swap), :confirm => 'Are you sure you wish to Decline this offer?', :method => :post %>
+              </td>
+            <% else %>
+              <td><%= p.response_human %><% unless p.responded_at.nil?%> @ <%= p.responded_at.localtime %><% end %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+
+      <% if @swap.can_complete? %>
+        <h3>Complete?</h3>
+        <%= link_to 'Complete', complete_swap_path(@swap), :confirm => 'Are you sure this offer is complete?', :method => :post %>
+      <% end %>
+      
+      <% if @swap.completed? %>
+        <h3>This swap is complete</h3>
+      <% end %>
+
+      <h3>Items in this offer</h3>
+      <table>
+        <tr>
+          <th></th>
+          <th>Item Name</th>
+          <th>Value</th>
+          <th>Recipient</th>
+        </tr>
+        <% @swap.swap_items.each do |si| %>
+          <tr>
+            <td><% unless si.item.images.empty? %><%= link_to image_tag(si.item.images.first.url(:thumb)), si.item.images.first.url %><% end %></td>
+            <td><%= link_to si.item.name, item_path(si.item) %></td>
+            <td><%= (si.item.price.nil?) ? "Not Specified" : number_to_currency(si.item.price) %></td>
+            <td><%= link_to si.recipient user_path(si.recipient) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="clear"></div>
+    <div class="col3_botm">&nbsp;</div>
+  </div>
+</div>

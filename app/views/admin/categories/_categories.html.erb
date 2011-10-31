@@ -1,0 +1,9 @@
+<%= paginate @categories %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Items</th>
+  </tr>
+  <%= render :partial => 'category', :collection => @categories %>
+</table>
+<%= paginate @categories %>

@@ -1,0 +1,44 @@
+
+
+	<div class="mid-part">
+		<div class="add_in_item">
+			<h5>STORE REGISTRATION (2 OF 2)</h5>
+			<h6>Store Info</h6>
+                        <% form_tag store_update_path, :multipart => true  do %>
+			<div>
+			<!--<div class="form_registration_two">
+			<p><label class="city_left_one">State</label><select name="" class="one"></select></p>
+			<br class="clear" /></div>%>
+			</div>-->
+			<div class="form">
+			<div class="phone_num_oneprice">
+			<label class="shipping_price">Location</label><%= text_field :user_profile, :location ,:class=>"name_item" %></div>
+			<%#*<div class="phone_twopriceone"><label class="right_state_size">State</label><select name="" class="price_add" >%>
+			<%#*<option>1</option>%>
+			<%#*<option>2</option>%>
+			<%#*</select></div>%>
+                          <%#*<label class="shipping_price">State</label><%= select :address,:state, Carmen::states('US'), {:include_blank => true}%>
+                        <%#*</div>%>
+                          <p style="clear:both;"></p>
+                          <p><label class="shipping_price">Sport</label><%= text_field :user_profile, :sports ,:class=>"name_item" %></p>
+			<%#*<option>1</option>%>
+			<%#*<option>2</option>%>
+			<%#*</select></p>%>
+			<p><label class="shipping_price">Established in</label><%= text_field :store, :established_in ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Gear designed by</label><%= text_field :store, :gear_designed_by ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Website</label><%= text_field :user_profile, :website ,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Cause</label><%= text_area :store, :cause, :size => "25x8", :class=>"name_item_three_password" %></p>
+			<%= image_submit_tag ('../images/create_but.png'),:style=>"float:right;"  %>
+			
+			<br class="clear" />
+			</div>
+			<br class="clear" />
+			</div>
+			<br class="clear" />
+ <% end %>
+		</div>
+
+	  <div class="clear"></div>
+	<%#*</div>%>
+	<div class="clear"></div>
+</div>

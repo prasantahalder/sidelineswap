@@ -1,0 +1,16 @@
+#notifications_container {
+  z-index: 99998;
+  position: fixed;
+  width: 400px;
+  top: 30%;
+  right: 35%;
+}
+.notification{ clear: both;position:relative;margin:0 0 15px;padding:0;border:1px solid;background-position:10px 11px !important;background-repeat:no-repeat !important;width:99.8%;}
+.attention{background:#fffbcc url('../images/icons/icon-attention.png') 10px 11px no-repeat;border-color:#e6db55;color:#97700f;}
+.information{background:#dbe3ff url('../images/icons/icon-information.png');border-color:#a2b4ee;color:#384d9c;}
+.notice{background:#dbe3ff url('../images/icons/icon-information.png');border-color:#a2b4ee;color:#384d9c;}
+.success{background:#d5ffce url('../images/icons/icon-check.png');border-color:#9adf8f;color:#3d550f;}
+.error{background:#ffcece url('../images/icons/icon-error.png');border-color:#df8f8f;color:#660000;}
+.invalid{background:#ffcece url('../images/icons/icon-error.png');border-color:#df8f8f;color:#660000;}
+.notification div{display:block;font-style:normal;padding:10px 10px 10px 36px;line-height:1.5em;}
+.notification .close{color:#900;font-size:9px;position:absolute;right:10px;top:10px;}

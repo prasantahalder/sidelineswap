@@ -1,0 +1,126 @@
+<!-- Banner Section -->
+<script type="text/javascript">
+  function Show(divID)
+  {
+    document.getElementById('divDescription'+divID).style.display='block';
+  }
+  function Hide(divID)
+  {
+    document.getElementById('divDescription'+divID).style.display='none';
+  }
+</script><div id="banner">
+  <div id="slider4" class="nivoSlider">
+    <%= image_tag('banner1.jpg') %>
+    <%= image_tag('banner2.jpg') %>
+    <%= image_tag('banner3.jpg') %>
+    <%= image_tag('banner4.jpg') %>
+  </div>
+
+  <%= javascript_include_tag 'jquery.nivo.slider.pack.js' %>
+  <%= javascript_include_tag 'nivo.js' %>
+</div>
+
+<div class="clear"></div>
+<!-- Scrolling Products -->
+<div class="content_sec">
+  <!-- Column2 Section -->
+  <div class="col2">
+    <div class="col2_top">&nbsp;</div>
+    <div class="col2_center">
+      <div class="item-container">
+        <h4 class="heading colr">Featured Gears</h4>
+        <ul>
+
+          <% @featured_items.each_index do |i|  %>
+            <%= render :partial => '/items/item', :locals => {:item => @featured_items[i], :last => ((i+1) % 4 == 0) ,:ang=> i,:type=>"fd"} %>
+          <% end %>
+        </ul>
+      </div>
+
+
+
+
+      <div class="mid-pro-info">
+        <div class="pro-info first">
+
+          <% k=0 %>
+          <% @featured_items.each do |i| %>
+            <%  if k==0 %>
+
+              <div class="clear"></div>
+              <h5><%= i.user.store.organizationname %></h5><br />
+              <h6><%= i.user.user_profile.location %>,
+                <%= i.user.store.address.state %></h6><br/>
+              <%= i.user.user_profile.sports %><br/>
+              <%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
+              <%= link_to "All Stores" , store_index_path %>
+              <% k=1 %>
+    <%# else %>
+    <%#  user.store.each do |j| %>
+    <%#*<div><div class="images"><%= image_tag item.attachable.url(:thumb) %></div>
+    <%#*<div class="clear"></div>%>
+    <%#*</div>%>
+    <%# if j==2 %>
+    <%# break %>
+    <%# end %>
+          <% end %>
+        <% end %>
+        <p class="center">
+        </p>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+
+    <div class="item-container">
+      <h4 class="heading colr">Most Popular</h4>
+      <ul>
+        <% @popular_items.each_index do |i| %>
+          <%= render :partial => '/items/item', :locals => {:item => @popular_items[i], :last => (@popular_items.length-1 == i),:ang=> i,:type=>"mp"} %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="clear"></div>
+
+
+    <div class="item-container">
+      <h4 class="heading colr">Recently Added</h4>
+      <ul>
+        <% @recent_items.each_index do |i| %>
+          <%= render :partial => '/items/item', :locals => {:item => @recent_items[i], :last => (@recent_items.length-1 == i),:ang=> i,:type=>"ra"} %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="col2_botm">&nbsp;</div>
+</div>
+<!-- Column1 Section -->
+<%#= render :partial => 'rightcol' %>
+
+<div class="clear"></div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+<div class="content_sec">
+  <!-- Column2 Section -->
+  <div class="col2">
+    <div class="col2_top">&nbsp;</div>
+    <div class="col2_center">
+      <h4 class="heading colr"><%= pretty_name || "Item Results" %></h4>
+      <!--<div class="small_banner">
+            	<a href="#"><img src="images/small_banner.gif" alt="" /></a>
+      </div>-->
+      <div class="sorting">
+        <p class="left colr"><%= pluralize @items.count, 'Item' %></p>
+        <ul class="right">
+          <li class="text" id="paginator">
+            <%= paginate @items, :remote => true %>
+          </li>
+        </ul>
+        <div class="clear"></div>
+        <!--
+            <p class="left">View as: <a href="#" class="bold">Grid</a>&nbsp;<a href="#" class="colr">List</a></p>
+        -->
+        <ul class="right">
+          <li class="text">
+            Sort by  <div id="sort-links"><%= sort_links @sorts, {:class => 'colr', :default => 'id' }%></div>
+          </li>
+        </ul>
+      </div>
+      <div id="items-list">
+        <%= render :partial=> 'items' %>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="col2_botm">&nbsp;</div>
+  </div>
+  <!-- Column1 Section -->
+  <%= render :partial => '/welcome/rightcol' %>
+</div>
+<div class="clear"></div>

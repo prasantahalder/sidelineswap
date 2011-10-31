@@ -1,0 +1,59 @@
+
+
+   <div class="account_table">
+                	<ul class="headtable">
+                      	<li class="offer-to bold">Offered to</li>
+                        <li class="offer-on bold">Offer made on</li>
+                        <li class="offer-expires bold">Offer expires in</li>
+                        <li class="status bold last">Status</li>
+
+                    </ul>
+                    <ul class="contable">
+                    	<li class="offer-to"><%= link_to other_party(swap).user, locker_path(other_party(swap).user.lockers.first) %></li>
+                        <li class="offer-on"><%= time_ago_in_words swap.created_at.localtime %> ago</li>
+                        <li class="offer-expires"><%= (!swap.expired?) ? 'in ' : ''%><%= time_ago_in_words swap.expiration.localtime %><%= (swap.expired?) ? ' ago' : ''%></li>
+                      <li class="status last"><%= swap.completed ? "Completed" :  swap.agreed ? swap.paid? ? "Paid" : "Agreed" : swap.can_withdraw? ? "Pending" : "Rejected" %></li>
+                    </ul>
+							
+					<div style="clear:both;"></div><div class="act"><u><% if swap.can_withdraw? %><%= link_to 'Withdraw Offer', user_swap_path(other_party(swap).user, swap), :confirm => 'Are you sure?', :method => :delete %> <% end %></div><div class="act2"><% if swap.can_pay?(current_user) %><%= link_to image_tag('butn_pay.gif'), checkout_swap_path(swap) %><% end %></u></div>	
+					
+							
+							
+                	<ul class="headtable">
+                   	  <li class="offer-get bold last">You offered</li>
+                  </ul><div class="clear"></div><div id="their-items" class="clear">
+
+    <ul class="forms"><br />
+ <% if swap.swap_parties.where(:user_id => current_user.id).first.cash_offer %>
+              <div style="float:left;margin-right:50px;"><h1 style="color:#060;"><strong>$<%= swap.swap_parties.where(:user_id => current_user.id).first.cash_offer %></strong></strong></h1></div><div style="clear:both;"></div><br />
+
+             <% else %>
+<% swap.swap_items.each do |si| %>
+          <% if si.recipient != current_user %>
+          <div class="offer-thumb"><li class="txt clear">
+            <% unless si.item.images.empty? %><%= link_to image_tag(si.item.images.first.url(:thumb)), item_path(si.item) %><% end %>
+           </li>
+           <li class="check" style="margin-top:5px;margin-left:5px;"></li></div>
+        <% end %>
+    <% end %>
+    <% end %>
+    </ul>
+  </div><div style="clear:both;"></div><br />
+					<ul class="headtable">
+                   	  <li class="offer-want bold last">You want</li>
+                    </ul><div class="clear"></div><br /><ul class="forms"><br />
+            
+		<% swap.swap_items.each do |si| %>
+          <% if si.recipient == current_user %>
+          <div class="offer-thumb"><li class="txt clear">
+            <% unless si.item.images.empty? %><%= link_to image_tag(si.item.images.first.url(:thumb)), item_path(si.item)%><% end %>
+           </li>
+           <li class="check" style="margin-top:5px;margin-left:5px;"></li></div>
+        <% end %>
+       <% end %>
+       
+    </ul>
+    </div>
+   
+ <div style="clear:both;"></div><br /><br /><br />
+  

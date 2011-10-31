@@ -1,0 +1,70 @@
+<div class="content_sec">
+  <!-- Column2 Section -->
+  <div class="col2">
+    <div class="col2_top">&nbsp;</div>
+    <div class="col2_center">
+      <h4 class="heading colr"><%= pretty_name || "Item Results" %></h4>
+      <!--<div class="small_banner">
+            	<a href="#"><img src="images/small_banner.gif" alt="" /></a>
+      </div>-->
+    <div class="prod_detail">
+        <div class="profile_thumb">
+            <div id="slider2">
+                <div style="display: block; z-index: 1; opacity: 1; visibility: visible; " class="contentdiv">
+		<%= image_tag('missing_profile.jpg') %>
+                </div>
+            </div>
+	 </div>
+        <div class="profile">
+          <div class="quickreview">
+            <a href="#" class="bold black left"><u><%= current_user.login %></u></a>
+             <p><br />
+<%= form_for( @user_profile) do |f| %>
+  <% if @user_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_profile..errors.count, "error") %> prohibited this performer from being saved:</h2>
+
+      <ul>
+        <% @user_profile.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hometown %><br />
+    <%= f.text_field :hometown %>
+  </div>
+  <div class="field">
+    <%= f.label :club_teams %><br />
+    <%= f.text_field :club_teams %>
+  </div>
+  <div class="field">
+    <%= f.label :sports %><br />
+    <%= f.text_field :sports %>
+  </div>
+  <div class="field">
+    <%= f.label :favorite_teams %><br />
+    <%= f.text_field :favorite_teams %>
+  </div>
+  <div class="field">
+    <%= f.label :favorite_brand %><br />
+    <%= f.text_field :favorite_brand %>
+  </div>
+  <div class="field">
+    <%= f.label :bio %><br />
+    <%= f.text_field :bio %>
+  </div>
+  <%= f.submit %>
+<% end %>
+            </div>
+          <div class="clear"></div>
+            </div>
+</div>
+</div>
+</div>
+       <!-- Column1 Section -->
+  <%= render :partial => '/welcome/rightcol' %>
+</div>
+<div class="clear"></div>

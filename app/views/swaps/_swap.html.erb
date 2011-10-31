@@ -1,0 +1,15 @@
+<tr>
+  <td><%= link_to swap.name, admin_swap_path(swap) %></td>
+  <td><%= link_to other_party(swap).user, user_path(other_party(swap).user) %></td>
+  <td><%= swap.swap_items.count %></td>
+  <td><%= time_ago_in_words swap.created_at.localtime %> ago</td>
+  <td><%= (!swap.expired?) ? 'in ' : ''%><%= time_ago_in_words swap.expiration.localtime %><%= (swap.expired?) ? ' ago' : ''%></td>
+  <td><%= swap.completed ? "Yes" : "No" %></td>
+  <td><%= swap.agreed ? "Yes" : "No" %></td>
+  <td>
+    <%= link_to 'view', user_swap_path(other_party(swap).user, swap) %>
+    <% if swap.can_update? %><%= link_to 'edit', edit_user_swap_path(other_party(swap).user, swap) %><% end %>
+    <% if swap.can_withdraw? %><%= link_to 'withdraw', user_swap_path(other_party(swap).user, swap), :confirm => 'Are you sure?', :method => :delete %><% end %>
+    <% if swap.can_pay?(current_user) %><%= link_to 'pay', checkout_swap_path(swap) %><% end %>
+  </td>
+</tr>

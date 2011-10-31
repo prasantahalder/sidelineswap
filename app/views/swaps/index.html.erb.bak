@@ -1,0 +1,13 @@
+<div class="content_sec">
+  <div class="col3">
+    <div class="col3_top">&nbsp;</div>
+    <div class="col3_center">
+      <h2 class="heading colr">Your Offers</h2>
+      <div id="swap-list">
+        <%= render :partial => 'swaps', :locals => {:swaps => resources}  %>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="col3_botm">&nbsp;</div>
+  </div>
+</div>

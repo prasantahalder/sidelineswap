@@ -1,0 +1,9 @@
+<% rand_val = (rand() * 100000000).to_i %>
+<div class="swap-item" id="swap-item-<%= form.object.id || rand_val%>">
+  <%= form.object.item.name %>
+  <% if form.object.new_record? %>
+    <%= hidden_field_tag "swap[swap_items_attributes][#{rand_val}][item_id]", form.object.item_id %>
+    <%= hidden_field_tag "swap[swap_items_attributes][#{rand_val}][recipient_id]", form.object.recipient_id%>
+  <% end %>
+  <a href="#" onclick="remove_swap_item('<%=form.object.id || rand_val%>', '<%=form.object.item.id%>')">remove</a>
+</div>

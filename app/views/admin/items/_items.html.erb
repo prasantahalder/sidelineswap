@@ -1,0 +1,14 @@
+<%= paginate @items %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Weight</th>
+    <th>Category</th>
+    <th>Locker</th>
+    <th>User</th>
+    <th>Available</th>
+  </tr>
+  <%= render :partial => 'item', :collection => @items %>
+</table>
+<%= paginate @items %>

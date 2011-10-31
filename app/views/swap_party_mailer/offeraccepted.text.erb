@@ -1,0 +1,27 @@
+Congratulations! Your offer has been accepted! Time to ship your gear
+
+Hey  <%= @party.user.first_name %>, 
+
+Congratulations! <%= @respondent.user %> has accepted your offer. 
+
+Please ship your item immediately to the address below: 
+
+Shipping info:
+<%= @shipping_address.first_name %> <%= @shipping_address.last_name %>
+<%= @shipping_address.street_1 %>
+<%= @shipping_address.street_2 %>
+<%= @shipping_address.city %> , <%= @shipping_address.state %>
+<%= @shipping_address.zip  %>
+
+Contact information for <%= @respondent.user %> has also been provided in case you need to contact <%= @respondent.user %> with any questions or concerns regarding this swap. 
+
+Contact info:
+<%= @respondent.user.email %>
+
+Now that you have accepted the offer, we are going to remove the item from your locker so you don't get any more offers on that item. 
+
+Do you have new gear that you haven't added to your locker yet? Post it now so other users can see all you have to offer. http://slsdev2.webair.com/items/new 
+
+If you have any questions or concerns please don't hesitate to contact us at info@sidelineswap.com 
+
+From your friends on the SidelineSwap Customer Support Team

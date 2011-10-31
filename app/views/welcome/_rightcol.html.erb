@@ -1,0 +1,81 @@
+<div class="col1">
+  <!-- Categories -->
+  <div class="category">
+    <div class="col1center">
+      <div class="small_heading">
+        <h5>Categories</h5>
+      </div>
+      <div class="glossymenu">
+        <a class="menuitem submenuheader" href="#" >Sports</a>
+        <div class="submenu sportscat">
+          <ul>
+            <% Category.all.each do |category| %>
+              <li><%= link_to "#{category.name} (#{category.items.count})", category_items_path(category) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="left_botm">&nbsp;</div>
+  </div>
+  
+  <!-- My Locker Products -->
+  <% if current_user %>
+    <div class="mycart">
+      <div class="col1center">
+        <div class="small_heading">
+          <h5>Pending Offers</h5>
+          <div class="clear"></div>
+          <span class="veiwitems"><%= pluralize current_user.swaps.right_col.count, 'Pending Offer' %>  - <a href="<%= user_swaps_path(current_user) %>" class="colr">View Offers</a></span>
+        </div>
+        <% if current_user.swaps.right_col.empty? %>
+          You have no offers yet!
+        <% else %>
+          <ul>
+            <% current_user.swaps.right_col.each do |swap| %>
+              <li>
+                <p class="bold title">
+                  <a href="<%= user_swap_path(current_user, swap) %>">View Offer</a>
+                </p>
+                <div class="grey">
+                  <p class="left">Items: <span class="bold"><%= swap.items.by_user(current_user).count %> / <%= swap.items.not_by_user(current_user).count %></span></p>
+                  <p class="right">Expiration: <span class="bold"><%= time_ago_in_words swap.expiration %></span></p>
+                </div>
+                <div>With: <%= swap.other_party(current_user) %></div>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+      <div class="left_botm">&nbsp;</div>
+    </div>
+  <% end %>
+  
+  <div><div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like-box href="http://www.facebook.com/pages/SidelineSwap/155604741173666" width="230" show_faces="true" border_color="" stream="false" header="false"></fb:like-box></div>
+  
+  <!--<div class="poll">
+    <div class="col1center">
+      <div class="small_heading">
+        <h5>Poll</h5>
+      </div>
+      <p>What is your favorite SidelineSwap feature?</p>
+      <ul>
+        <li><input name="layerd" type="radio" value="" />
+                	Example</li>
+        <li><input name="price" type="radio" value="" />
+          Example 2</li>
+        <li><input name="category" type="radio" value="" />
+          Example 3</li>
+        <li><input name="compare" type="radio" value="" />
+          Example 4</li>
+      </ul>
+      <a href="#" class="simplebtn"><span>Vote</span></a>
+    </div>
+    <div class="clear"></div>
+    <div class="left_botm">&nbsp;</div>
+  </div>-->
+  <div class="clear"></div>
+</div>

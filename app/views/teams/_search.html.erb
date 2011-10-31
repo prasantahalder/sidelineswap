@@ -1,0 +1,6 @@
+<% @search.each do |r| %>
+  <div class="result" >
+    <input type="hidden" name="<%= @form_object %>[team_ids][]" value="<%= r.id %>"/>
+    <%= highlight r.name, @query %> (<%= r.country %>)
+  </div>
+<% end %>

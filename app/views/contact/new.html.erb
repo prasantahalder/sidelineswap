@@ -1,0 +1,74 @@
+<!-- Scroolling Products -->
+<div class="content_sec">
+  <!-- Column2 Section -->
+  <div class="col2">
+    <div class="col2_top">&nbsp;</div>
+    <div class="col2_center">
+      <h4 class="heading colr">Get in Touch</h4>
+
+      <div class="mapsec">
+        <h6>SidelineSwap</h6>
+        <p>Have a question or comment?<br />Please let us know.<br /><br />
+        <p>
+          <span class="bold">E:</span> <a href="mailto:info@sidelineswap.com">info@sidelineswap.com</a></p><div class="clear"></div><br />     
+		<p>A SidelineSwap representative will reply to your inquiry within 48 hours.</p><div style="clear:both;"></div><br />
+		
+		<hr><div style="clear:both;"></div>
+		
+		<div style="float:left;width:150px;margin-top:20px;font-weight:bold;font-size:14px;text-align:center;">Like Us on Facebook<br /><br /><a href="http://www.facebook.com/pages/SidelineSwap/155604741173666" target="_blank"><img src="images/facebook2.png"></a></div><div style="float:left;width:150px;margin-left:10px;margin-top:20px;font-weight:bold;font-size:14px;text-align:center;">Follow Us on Twitter<br /><br /><a href="http://twitter.com/#!/sidelineswap" target="_blank"><img src="images/twitter2.png"></a></div>
+        
+
+        <!--<div class="map">
+          <iframe width="300" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Long+Island,+NY&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.291089,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=New+York&amp;z=11&amp;ll=40.714353,-74.005973&amp;output=embed"></iframe><a href="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Long+Island,+NY&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.291089,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=New+York&amp;z=11" class="enlarg">VIEW MAP</a><div class="clear"></div>
+        </div>-->
+      </div>
+      <div class="contact_form">
+        <h6>Send us a Message</h6>
+        <ul>
+          <li>
+            <input type="text" value="Name" name="contactname" id="contactname" onblur="if(this.value == '') { this.value = 'Name'; }" onfocus="if(this.value == 'Name') { this.value = ''; }" class="bar required" />
+          </li>
+          <li>
+            <input type="text" value="Email Adress" name="email" id="email" onblur="if(this.value == '') { this.value = 'Email Adress'; }" onfocus="if(this.value == 'Email Adress') { this.value = ''; }" class="bar required email" />
+          </li>
+          <li>
+            <input type="text" value="Subject" name="subject" onblur="if(this.value == '') { this.value = 'Subject'; }" onfocus="if(this.value == 'Subject') { this.value = ''; }" id="subject" class="required bar" />
+          </li>
+          <li>
+            <textarea id="message" name="message" onblur="if(this.value == '') { this.value = 'Message'; }" onfocus="if(this.value == 'Message') { this.value = ''; }" cols="50" rows="5" class="required"></textarea>
+          </li>
+          <li>
+            <a href="#" class="simplebtn"><span>Submit</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="col2_botm">&nbsp;</div>
+  </div>
+  <!-- Column1 Section -->
+  <div class="col1">
+    <!-- Categories -->
+    <div class="category">
+      <div class="col1center">
+        <div class="small_heading">
+          <h5>Categories</h5>
+        </div>
+        <div class="glossymenu">
+          <a class="menuitem submenuheader" href="#" >Sports</a>
+          <div class="submenu sportscat">
+            <ul>
+              <% Category.all.each do |category| %>
+                <li><%= link_to "#{category.name} (#{category.items.count})", category_items_path(category) %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="left_botm">&nbsp;</div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="clear"></div>

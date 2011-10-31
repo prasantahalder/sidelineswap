@@ -1,0 +1,19 @@
+<script type="text/javascript">
+function Show(divID)
+{
+	document.getElementById('divDescription'+divID).style.display='block';
+	
+}
+function Hide(divID)
+{
+document.getElementById('divDescription'+divID).style.display='none';
+}
+</script>
+<div class="item-container">
+  <ul>
+    <% @items.each_index do |i|    %>
+      
+      <%= render :partial => '/items/item', :locals => {:last => ( (i+1) % 4 == 0), :item => @items[i], :ang=> i,:type=>"fd"} %>
+    <% end %>
+  </ul>
+</div>

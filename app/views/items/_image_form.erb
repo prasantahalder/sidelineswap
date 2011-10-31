@@ -1,0 +1,26 @@
+<% if image_form.object.new_record? %>
+<!-- image start -->
+<%#*<div class="">%>
+  <%#*<br/>%>
+  <%#*<ul class="forms">%>
+    <%#*<li class="txt">%>
+      <%#= image_form.label :title, "Image Title" %>
+    <%#*</li>%>
+    <%#*<li class="inputfield">%>
+      <%#= image_form.text_field :title %>
+    <%#*</li>%>
+  <%#*</ul>%>
+<%#*</div>%>
+<div class="field">
+  <ul class="forms">
+    <li class="txt">
+      <%= image_form.label :image %>
+    </li>
+    <li class="inputfield">
+      <%= image_form.file_field :image %>
+    </li>
+  </ul>
+</div>
+<!-- image end -->
+<div class="clear"></div>
+<% end %>

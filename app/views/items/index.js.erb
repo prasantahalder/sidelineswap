@@ -1,0 +1,3 @@
+$("#items-list").html("<%= escape_javascript( render(:partial => "items") ) %>");
+$('#paginator').html('<%= escape_javascript(paginate(@items, :remote => true).to_s) %>');
+$('#sort-links').html('<%= escape_javascript(sort_links @sorts, {:class => 'colr', :default => 'id' }) %>');

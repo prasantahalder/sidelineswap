@@ -1,0 +1,8 @@
+<tr>
+  <td><%= link_to user_profile.user, admin_user_path(user_profile.user) %></td>
+  <td><%= user_profile.location %></td>
+  <td><%= user_profile.age %></td>
+  <td><%= truncate user_profile.bio %></td>
+  <td><%= (user_profile.updated_at.nil?) ? user_profile.created_at.localtime : user_profile.updated_at.localtime %></td>
+  <td><%= link_to 'show', admin_user_profile_path(user_profile) %> <%= link_to 'edit', edit_admin_user_profile_path(user_profile) %></td>
+</tr>
