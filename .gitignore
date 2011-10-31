@@ -1,0 +1,11 @@
+log/*.log
+tmp/pids/
+tmp/sockets/
+nbproject
+public/system/
+public/videos/
+public/audios/
+*.swp
+.bundle/
+tags
+tmp/
