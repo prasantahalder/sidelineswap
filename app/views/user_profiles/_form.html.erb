@@ -67,7 +67,7 @@
     <div class="field"><br />
       <ul class="forms">
       <li class="txt">Active Picture</li>
-      <li class="inputfield"><%= image_tag(image_form.object.image.url(:thumb))%></li>
+      <li class="inputfield"><%= image_tag(image_form.object.photo.url(:thumb))%></li>
       </ul>
     </div>
     <div class="field">
@@ -80,9 +80,9 @@
 
     <div class="field"><br />
       <ul class="forms"><li class="txt">
-        <%= image_form.label :image, "Profile Picture" %>
+        <%= image_form.label :photo, "Profile Picture" %>
       </li>
-        <li class="txt"><%= image_form.file_field :image %></li></ul>
+        <li class="txt"><%= image_form.file_field :photo %></li></ul>
 
     </div><div style="clear:both;"></div><br />
     <% end %>

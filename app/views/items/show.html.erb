@@ -11,7 +11,7 @@
 		@item.images.each do |image,i| %>
 		 
         <% if inx==0 %>
-		<%=  image_tag(image.image.url(:item_detail),:id=>"big-img-hover")  %> <a rel="example_group" href="<%= image.image.url(:original)%>" title="<%= image.title %>"  >&nbsp;</a>
+		<%=  image_tag(image.photo.url(:item_detail),:id=>"big-img-hover")  %> <a rel="example_group" href="<%= image.photo.url(:original)%>" title="<%= image.title %>"  >&nbsp;</a>
         	 
 		<% end %> 
 	<% inx+=1 end %>
@@ -23,7 +23,7 @@
           <li><a href="#"  ><%= image_tag('missing_thumb.jpg') %></a></li>
           <% end %>
           <% @item.images.each do |image| %>
-          <li><a href="#" onmouseover="javascript:document.getElementById('big-img-hover').src='<%=  image.image.url(:item_detail) %>';"  ><%=  image_tag(image.image.url(:thumb) ) %></a></li>
+          <li><a href="#" onmouseover="javascript:document.getElementById('big-img-hover').src='<%=  image.photo.url(:item_detail) %>';"  ><%=  image_tag(image.photo.url(:thumb) ) %></a></li>
           <% end %>
         </ul>
       </div>
@@ -36,7 +36,7 @@
         <h4><%= @item.name%></h4>
         <h5>Category: <%= @item.category%></h5>
         <p>
-          <em>from <a href="<%= locker_path(@item.locker.id) %>"><u><%= @item.user%>'s Locker</u></a></em>
+          <em>from <a href="<%= locker_path(@item.user_id) %>"><u><%= @item.user%>'s Locker</u></a></em>
         </p>
         <h6>Description:</h6>
         <div style="height:180px; overflow:auto;"> <%= @item.description %></div>

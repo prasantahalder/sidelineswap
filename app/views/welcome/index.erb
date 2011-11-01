@@ -27,7 +27,7 @@
   <div class="col2">
     <div class="col2_top">&nbsp;</div>
     <div class="col2_center">
-      <div class="item-container">
+      <div class="item-container" style="padding: 0px;">
         <h4 class="heading colr">Featured Gears</h4>
         <ul>
 
@@ -48,13 +48,13 @@
             <%  if k==0 %>
 
               <div class="clear"></div>
-              <h5><%= i.user.store.organizationname %></h5><br />
+              <h5><%= i.user.store.organizationname %></h5>
               <h6><%= i.user.user_profile.location %>,
-                <%= i.user.store.address.state %></h6><br/>
-              <%= i.user.user_profile.sports %><br/>
-              <%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
+                <%= i.user.store.address.state %>
+              <br/><%= i.user.user_profile.sports %></h6>
+              <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
               <%= link_to "All Stores" , store_index_path %>
-              <% k=1 %>
+              <% k=1 %></p>
     <%# else %>
     <%#  user.store.each do |j| %>
     <%#*<div><div class="images"><%= image_tag item.attachable.url(:thumb) %></div>
@@ -65,13 +65,26 @@
     <%# end %>
           <% end %>
         <% end %>
-        <p class="center">
-        </p>
+         <div class="pro-info">
+    <%#*<div class="pro-info">%>
+      <% k=0 %>
+      <% @featured_items.each do |i| %>
+        <%  if k==0 %>
+          <h5><%= i.user.store.organizationname %></h5>
+          <h6><%= i.user.user_profile.location %>,
+            <%= i.user.store.address.state %>
+            <br/> <%= i.user.user_profile.sports %></h6>
+          <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
+            <%= link_to "All Stores" , store_index_path %>
+            <% k=1 %></p>
+        <% else %>
+
+        <% end %>
+      <% end %>
+    </div>
         <div class="clear"></div>
       </div>
     </div>
-
-    <div class="clear"></div>
 
 
     <div class="item-container">

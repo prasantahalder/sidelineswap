@@ -50,7 +50,12 @@
                 <%= @store.user.user_profile.website %><br/><br/>
                 <label><b>Cause: </b></label>
                 <%= @store.cause %>       <br/>
-                <%#= image_tag @store.user.images.photo.url %>
+                <div class="left-part-inner">
+    <!-- Column2 Section -->
+    <%#*<div class="user-profile">%>
+      <%#*<div class="slider"> <%= @store.user.images.first.nil? ?  image_tag('missing_profile.jpg', :size=>'150x200',:class=>'img-left')  : image_tag(@user_profile.images.first.url(:thumb), :size=>'150x200',:class=>'img-left')%>
+      <%#*</div>%>
+    </div>
               <% else %>
                 <div class="stickytooltip"><%= link_to "Edit Profile",store_edit_profile_path %></div>
                 
