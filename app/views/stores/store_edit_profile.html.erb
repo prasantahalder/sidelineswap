@@ -12,24 +12,39 @@
 			</div>-->
 			<div class="form">
 			<div class="phone_num_oneprice">
-			<label class="shipping_price">Location</label><%= text_field :user_profile,:location,:value =>@profile_userpforile.location %></div>
+			<label class="shipping_price">Location</label><%= text_field :user_profile,:location,:value =>@profile_userpforile.location, :class=>"name_item" %></div>
 			<%#*<div class="phone_twopriceone"><label class="right_state_size">State</label><select name="" class="price_add" >%>
 			<%#*<option>1</option>%>
 			<%#*<option>2</option>%>
 			<%#*</select></div>%>
                           <%#*<label class="shipping_price">State</label><%= select :address,:state, Carmen::states('US'), {:include_blank => true}%>
                         <%#*</div>%>
-			<br class="clear" /><br />
-			<label class="shipping_price">Sport</label><%= text_field :user_profile, :sports,:value =>@profile_userpforile.sports %>
+			<br class="clear" /><br />			
 			<%#*<option>1</option>%>
 			<%#*<option>2</option>%>
 			<%#*</select></p>%>
-			<p><label class="shipping_price">Established in</label><%= text_field :store, :established_in,:value =>@profile_store.established_in %></p>
-			<p><label class="shipping_price">Gear designed by</label><%= text_field :store, :gear_designed_by,:value =>@profile_store.gear_designed_by %></p>
-                        <p><label class="shipping_price">Add Profilr Picture</label><%= file_field :image,:photo %></p>
-			<p><label class="shipping_price">Website</label><%= text_field :user_profile, :website,:value =>@profile_userpforile.website %></p>
-			<p><label class="shipping_price">Cause</label><%= text_area :store, :cause, :size => "25x8",:value =>@profile_store.cause %></p>
-			<%= image_submit_tag ('../images/create_but.png')  %>
+                        <% unless current_user.blank? %>
+                        <% @profile_store=Store.find_by_user_id(current_user.id) %>
+                        <% @profile_userpforile=UserProfile.find_by_user_id(current_user.id) %>
+                        <% unless @profile_store.blank? && @profile_userpforile.blank? %>
+                        <p><label class="shipping_price">Sport</label><%= text_field :user_profile, :sports,:value =>@profile_userpforile.sports, :class=>"name_item" %></p>
+			<p><label class="shipping_price">Established in</label><%= text_field :store, :established_in,:value =>@profile_store.established_in, :class=>"name_item" %></p>
+			<p><label class="shipping_price">Gear designed by</label><%= text_field :store, :gear_designed_by,:value =>@profile_store.gear_designed_by, :class=>"name_item" %></p>
+                        <p><label class="shipping_price">Add Profile Picture</label>&nbsp;&nbsp;<%= file_field :image,:photo%></p>
+			<p><label class="shipping_price">Website</label><%= text_field :user_profile, :website,:value =>@profile_userpforile.website, :class=>"name_item" %></p>
+			<p><label class="shipping_price">Cause</label><%= text_area :store, :cause, :size => "25x8",:value =>@profile_store.cause, :class=>"add_an_priceahipping" %></p>
+                        <% else %>
+                        <p><label class="shipping_price">Sport</label><%= text_field :user_profile, :sports,:class=>"name_item" %></p>
+                        <p><label class="shipping_price">Established in</label><%= text_field :store, :established_in,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Gear designed by</label><%= text_field :store,:class=>"name_item" %></p>
+                        <p><label class="shipping_price">Add Profile Picture</label><%= file_field :image,:photo %></p>
+			<p><label class="shipping_price">Website</label><%= text_field :user_profile, :website,:class=>"name_item" %></p>
+			<p><label class="shipping_price">Cause</label><%= text_area :store, :cause, :size => "25x8",:class=>"add_an_priceahipping" %></p>
+                        <% end %>
+                       <%  else %>
+                        <h1> Log in requre </h1>
+                        <% end %>
+			<%= image_submit_tag ('../images/create_but.png'), :style=>"float:right;"  %>
 
 			<br class="clear" />
 			</div>

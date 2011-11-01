@@ -35,53 +35,42 @@
             <%= render :partial => '/items/item', :locals => {:item => @featured_items[i], :last => ((i+1) % 4 == 0) ,:ang=> i,:type=>"fd"} %>
           <% end %>
         </ul>
+        <div class="clear"></div>
       </div>
 
 
 
 
       <div class="mid-pro-info">
+        <% @featured_stores.each do |i| %>
+      <% if i== 0 %>
         <div class="pro-info first">
-
-          <% k=0 %>
-          <% @featured_items.each do |i| %>
-            <%  if k==0 %>
-
-              <div class="clear"></div>
-              <h5><%= i.user.store.organizationname %></h5>
-              <h6><%= i.user.user_profile.location %>,
-                <%= i.user.store.address.state %>
-              <br/><%= i.user.user_profile.sports %></h6>
-              <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
-              <%= link_to "All Stores" , store_index_path %>
-              <% k=1 %></p>
-    <%# else %>
-    <%#  user.store.each do |j| %>
-    <%#*<div><div class="images"><%= image_tag item.attachable.url(:thumb) %></div>
-    <%#*<div class="clear"></div>%>
-    <%#*</div>%>
-    <%# if j==2 %>
-    <%# break %>
-    <%# end %>
+        <%  else %>
+          <div class="pro-info">
           <% end %>
-        <% end %>
-         <div class="pro-info">
-    <%#*<div class="pro-info">%>
-      <% k=0 %>
-      <% @featured_items.each do |i| %>
-        <%  if k==0 %>
-          <h5><%= i.user.store.organizationname %></h5>
+          <% k=0 %>
+  <%# @featured_items.each do |i| %>
+          <h5><%= i.organizationname %></h5>
           <h6><%= i.user.user_profile.location %>,
-            <%= i.user.store.address.state %>
-            <br/> <%= i.user.user_profile.sports %></h6>
-          <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
-            <%= link_to "All Stores" , store_index_path %>
-            <% k=1 %></p>
-        <% else %>
+            <%= i.address.state %>
+            <br/><%= i.user.user_profile.sports %></h6>
+          <% @image = Image.where("attachable_type='item' and attachable_id=?",i.id).order('RAND()').limit(2) %>
+          <% unless @image.blank? %>
+            <%  @image.each do |image| %>
+              <div class="images"><%= image_tag image.photo.url(:thumb) %></div>
+            <% end %>
+          <% end %>
+  <%# else %>
+          <div class="clear"></div>
+  <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
+  <%= link_to "All Stores" , store_index_path %>
+  <%# k=1 %></p>
+  <%# end %>
+  <%# end %>
 
-        <% end %>
+        </div>
       <% end %>
-    </div>
+      
         <div class="clear"></div>
       </div>
     </div>
@@ -113,7 +102,7 @@
 </div>
 <!-- Column1 Section -->
 <%#= render :partial => 'rightcol' %>
-
+</div>
 <div class="clear"></div> 
 
 

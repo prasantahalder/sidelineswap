@@ -14,16 +14,12 @@ class StoresController < ApplicationController
 
   # Update frofile
   def store_update_profile
-#    @store = params[:store]
-#    @user_profile=params[:user_profile]
-#    @image=params[:image]
      @store = Store.find_by_user_id(current_user.id)
      @user_profile = UserProfile.find_by_user_id(current_user.id)
      @image = Image.find_by_sql("select * from images where attachable_type='logo' and attachable_id=#{current_user.id}")
      unless @image.blank?
        @image.each do |img|
          @gg=params[:image]
-         puts "fffffffffffffffffffffffdddddddddddddddddddddddddddddddgggggggggggggggggggg#{YAML::dump(@gg)}"
          img.update_attributes(params[:image])
        end
      else
@@ -33,14 +29,20 @@ class StoresController < ApplicationController
        @image.attachable_id=current_user.id
        @image.save
      end
-     @store.update_attributes(params[:store])
-     @user_profile.update_attributes(params[:user_profile])
+    if @store.update_attributes(params[:store]) && @user_profile.update_attributes(params[:user_profile])
+       redirect_to store_show_path(current_user.id)
+    end
+     
 
   end
   
   def store_index
     @stores=Store.all
     @featured_items=Item.where(:available == true).order('RAND()').limit(8)
+    @featured_stores=Store.where(:available == true).order('RAND()').limit(2)
+#    @item_image = Image.find_by_sql("select * from images where ")
+    puts "=================================================================================================="
+    puts YAML::dump(@featured_items)
     #     @stores.each do |f|
     #      puts "User_id>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#{f.user_id}"
     #     end

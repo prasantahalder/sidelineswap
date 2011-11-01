@@ -39,14 +39,12 @@ var d=document.getElementById("addsize");
 
 			<label></label>
 <%= form_for_resource :html => {:multipart => true} do |f| %>
-  <%#*<ul class="forms"><li class="txt">%>
+  
       <p><label class="shipping_price"> Item Name </label>
       <%= f.text_field :name, :class=>"name_item_three" %>
     </p>
  
-  <%#*<p><label class="shipping_price">Shipping Price</label>%>
-      <%#= f.text_field :price %>
-    <%#*</p>%>
+ 
   <p><label class="shipping_price">category</label>
       &nbsp;&nbsp;&nbsp;<%= f.collection_select :category_id, Category.all, :id, :name, :class=>"name_item_three" %>
     <%#*<li><label for="select" class="select">within</label>%>
@@ -78,15 +76,7 @@ var d=document.getElementById("addsize");
     </p>
  
   
-  <%# if resource.new_record? %>
-    <%#*<div style="float:right;width:350px;margin-top:50px;border-left:1px solid #666666;">%>
-        <%#*<p style="padding-left:10px;">All gear has a story... What's yours?</p>%>
-		<%#*<p>&nbsp;</p>%>
-        <%#*<p style="padding-left:10px;"><strong>Sample Description:</strong></p>%>
-        <%#*<p style="padding-left:10px;">Size, Condition, Other details (ex. Pockets)</p>%>
-        <%#*<p style="padding-left:10px;">Looking to sell ($25) or Swap</p>%>
-      <%#*</li></ul></div>%>
-  <%# end %>
+ 
     <p><label class="shipping_price">Description</label>
         <%= f.text_area :description, :rows => 8, :cols => 50, :class=>"name_item_three_password" %>
       </p>

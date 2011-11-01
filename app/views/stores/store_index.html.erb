@@ -3,41 +3,36 @@
     <h3>Welcome to Sideline Stores</h3>
     <p>This is what SidelineSwap is all about. Nobody makes cooler gear than local teams and charities. Everyone wants their gear, but it's almost impossible to get your hands on it. With Sideline Stores we've created a place where you can easily access the coolest and most unique gear in your sport. Do you run a team or charity ?  <%= link_to "Set up your own store here.",store_new_path %></div>
   <div class="mid-pro-info">
-    <div class="pro-info first">
-      <% k=0 %>
-      <% @featured_items.each do |i| %>
-        <%  if k==0 %>
-          <h5><%= i.user.store.organizationname %></h5>
+    <% @featured_stores.each do |i| %>
+      <% if i== 0 %>
+        <div class="pro-info first">
+        <%  else %>
+          <div class="pro-info">
+          <% end %>
+
+          <h5><%= i.organizationname %></h5>
           <h6><%= i.user.user_profile.location %>,
-            <%= i.user.store.address.state %>
+            <%= i.address.state %>
             <br/><%= i.user.user_profile.sports %></h6>
+          <% @image = Image.where("attachable_type='item' and attachable_id=?",i.id).order('RAND()').limit(2) %>
+          <% unless @image.blank? %>
+            <%  @image.each do |image| %>
+              <div class="images"><%= image_tag image.photo.url(:thumb) %></div>
+            <% end %>
+          <% end %>
+
+<p class="clear"></p>
           <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
             <%= link_to "All Stores" , store_index_path %>
-            <% k=1 %></p>
-        <% else %>
+          </p>
+          <br/>
 
-        <% end %>
+
+        </div>
       <% end %>
 
-
+      <div class="clear"></div>
     </div>
-    <div class="pro-info">
-      <% k=0 %>
-      <% @featured_items.each do |i| %>
-        <%  if k==0 %>
-          <h5><%= i.user.store.organizationname %></h5>
-          <h6><%= i.user.user_profile.location %>,
-            <%= i.user.store.address.state %>
-            <br/> <%= i.user.user_profile.sports %></h6>
-          <p class="center"><%= link_to "Go to #{i.user.store.organizationname}'s Store" , store_show_path(:id=>i.user.store.id) %><br/>
-            <%= link_to "All Stores" , store_index_path %>
-            <% k=1 %></p>
-        <% else %>
-
-        <% end %>
-      <% end %>
-    </div><div class="clear"></div>
-          </div>
 
     <div class="clear"></div>
 
@@ -46,7 +41,7 @@
         <ul class="sortby">
           <li><h4>Sort by</h4></li>
           <li></li>
-           <li></li>
+          <li></li>
           <li><select class="select-area">
               <option>All Starts</option>
             </select></li>
@@ -65,19 +60,20 @@
         <ul class="detail-list">
 
           <% @stores.each do |store|%>
-          <li><span><%= link_to store.organizationname,store_show_path(store.id) %></span></li>
-              <% sport=UserProfile.find(:first,:conditions => ['user_id =?',store.user_id]) %>
+            <li><span><%= link_to store.organizationname,store_show_path(store.id) %></span>
+            <% sport=UserProfile.find(:first,:conditions => ['user_id =?',store.user_id]) %>
     <%# sport.each do |f| %>
-              <big><%= sport.sports %></big>
-              <small><%= store.location %></small><br/>
+            <big><%= sport.sports %></big>
+            <small><%= store.location %></small></li>
     <%# end %>
-            <% end %>
-          <% else %>
-
-            <h4> Store Is not available here..</h4>
           <% end %>
-        </ul>
-            <div class="clear"></div>
-          </div>
+        <% else %>
+
+          <h4> Store Is not available here..</h4>
+        <% end %>
+      </ul>
+      <div class="clear"></div>
+    </div>
     <div class="clear"></div>
-          </div>
+  </div>
+</div>

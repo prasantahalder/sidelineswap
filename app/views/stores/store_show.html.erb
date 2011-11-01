@@ -28,18 +28,25 @@
 </head>
 
 
-  <div class="left-part-inner">
+<div class="left-part-inner">
 
-    <div class="store-profile">
-      <div class="slider">
-        <h2><%= @store.organizationname %><br />
-          <em><%= @store.user.user_profile.location %></em>,
-          <%= @store.address.state %>
-<%#= image_tag @store.attachable.url(:thumb) %>
-        </h2>
-<%#*<img src="images/img-4.jpg" alt="Sideline Swap" width="324" height="102" class="img-left" />%>
-        <% if current_user.blank? %>
-          <p><a href="#" onmouseover="Show(1)" onmouseout="Hide(1)">View full profile</a> <div id="divDescription1" style="display:none" class="stickytooltip">
+  <div class="store-profile">
+    <div class="slider">
+      <h2><%= @store.organizationname %><br />
+        <em><%= @store.user.user_profile.location %></em>,
+        <%= @store.address.state %>
+        <% @store_image=Image.where("attachable_type='logo' && attachable_id=?",@store.id) %>
+        <% @store_image.each  do |f| %>
+
+
+
+          <%= f.photo.nil? ?  image_tag('missing_profile.jpg', :size=>'150x200',:class=>'img-left')  : image_tag(f.photo.url(:thumb), :size=>'150x180',:class=>'img-left')%>
+        <% end  %>
+      </h2>
+
+      <% if current_user.blank? %>
+        <div><div style="float: left;"><a href="#" onmouseover="Show(1)" onmouseout="Hide(1)">View full profile</a></div> <div id="divDescription1" style="display:none; float: left;" class="stickytooltip">
+            <div class="clear"></div>
             <div class="tooltip-box">
               <div id="Div2" class="atip">
                 <label><b>Established In: </b></label>
@@ -51,47 +58,59 @@
                 <label><b>Cause: </b></label>
                 <%= @store.cause %>       <br/>
                 <div class="left-part-inner">
-    <!-- Column2 Section -->
-    <%#*<div class="user-profile">%>
-      <%#*<div class="slider"> <%= @store.user.images.first.nil? ?  image_tag('missing_profile.jpg', :size=>'150x200',:class=>'img-left')  : image_tag(@user_profile.images.first.url(:thumb), :size=>'150x200',:class=>'img-left')%>
-      <%#*</div>%>
-    </div>
-              <% else %>
-                <div class="stickytooltip"><%= link_to "Edit Profile",store_edit_profile_path %></div>
-                
-              <% end %>
-            </div>
-          </div>
 
-          <div class="stickystatus"></div>
-        </div><br />
-        User Rating: <span><img src="/images/bookmarks.png" alt=" " />
-          <img src="/images/bookmarks.png" alt=" " />
-          <img src="/images/bookmarks.png" alt=" " />
-          <img src="/images/bookmarks.png" alt=" " />
-          <img src="/images/bookmarks.png" alt=" " /> </span>
-					(+73)<br />
-        <a href="#">Feedback</a></p>
-        <div class="clear"></div>
+                </div>
+
+              </div></div></div>
+        <% else %>
+          <div class="stickytooltipedit">&nbsp;<%= link_to "Edit Profile",store_edit_profile_path(@profile_store,@profile_userpforile) %></div>
+
+        <% end %>
+        <br/>
+        <br/>
+
+        <div style="margin-left:160px;">
+          <div class="stickystatus" style="float: left;"></div>
+          <div >User Rating: <span><img src="/images/bookmarks.png" alt=" " />
+              <img src="/images/bookmarks.png" alt=" " />
+              <img src="/images/bookmarks.png" alt=" " />
+              <img src="/images/bookmarks.png" alt=" " />
+              <img src="/images/bookmarks.png" alt=" " /> </span>
+            (+73)<br /><br/>
+            <div  style="margin:20px 0 0 0px;"><a href="#">Feedback</a></div>
+          </div>
+          <div class="clear">&nbsp;</div>
+
+        </div>
+
       </div>
     </div>
-
-
-    <div class="item-container">
-
-      <ul>
-        <% if current_user.blank? %>
-        <% @featured_items.each_index do |i|  %>
-          <%= render :partial => '/items/item', :locals => {:item => @featured_items[i], :last => ((i+1) % 4 == 0) ,:ang=> i,:type=>"fd"} %>
-        <% end %>
-        <% else %>
-        <%= link_to image_tag("../images/add-link.png"), new_item_path %>
-        <% end %>
-      </ul>
-    </div>
-
-
-    <div class="clear"></div>
   </div>
+</div>
+
+
+<br />
+
+<div class="clear"></div>
+<%#*</div>%>
+<%#*</div>%>
+
+
+<div class="item-container">
+
+  <ul>
+    <% if current_user.blank? %>
+      <% @featured_items.each_index do |i|  %>
+        <%= render :partial => '/items/item', :locals => {:item => @featured_items[i], :last => ((i+1) % 4 == 0) ,:ang=> i,:type=>"fd"} %>
+      <% end %>
+    <% else %>
+      <%= link_to image_tag("../images/add-link.png"), new_item_path %>
+    <% end %>
+  </ul>
+</div>
+
+
+<div class="clear"></div>
+
 
 

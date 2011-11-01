@@ -5302,6 +5302,9 @@ a.tumbir:hover{ background:url(/images/tumblr.png) center -16px no-repeat;}
 .stickytooltip-r{position:absolute;background:url(../images/tooltip-right.png) no-repeat left top;z-index:3000; margin:-385px 0px 0px -270px ;}
 .stickytooltip-r .stickystatus{ color:white;padding-top:0px;text-align:center;font:bold 11px Arial;margin:0 25px 0 5px ; border-top:3px solid #A6CA35; height:0px; overflow:hidden;}
 .stickytooltip-r .atip{ width:247px; padding:15px 40px 15px 15px; }
+.stickytooltip a {color:#0f0ffd; text-decoration: none; text-align: center; font: bold 14px/20px verdana;}
+.stickytooltip a:hover {color:#0f0ffd; text-decoration: none;}
+.stickytooltipedit{text-color:#0f0ffd; text-decoration: none; text-align: center; font: bold 14px/20px verdana;}
 .atip{ width:247px; padding:15px 15px 15px 40px; }
 .atip h5{ font-size:18px; font-weight:bold; padding:0 0 15px 0;}
 .atip h6{ font-size:15px; font-weight:bold; padding:0 0 5px 0;}
@@ -5485,7 +5488,7 @@ add_in_item .form_registration_two a {
 .buttan_2{ width:120px; height:40px; border:none; float:right; background:url(images/add-item2.png) no-repeat; color:#FFFFFF;font-size:12px; font-family:Arial, Helvetica, sans-serif; text-align:center; padding-bottom:8px; font-weight: bold; }
 .name_item_three_password{  width:420px; padding:4px 6px; border:none;margin-left:10px; height:120px;}
 .mid-part .right-part{ width:353px; float:right;}
-.mid-part{ min-height:550px; padding: 10px 0 10px 0;}
+.mid-part{ /*min-height:550px;*/ padding: 10px 0 10px 0;}
 .mid-part .left-part{ width:645px; float:left; border-right:1px solid #A6CA35;}
 .mid-part .left-part-inner{ width:1002px;}
 .item-container-inner{ padding:20px 0 20px 0;}
@@ -5497,11 +5500,11 @@ add_in_item .form_registration_two a {
 .item-container-inner ul li a label{ display:block; text-align:center; font-size:14px; padding:5px 0;}
 .item-container-inner ul li a img{ border:1px solid #DBDBDB;}
 .mid-pro-info{ padding:10px; background:#F7F7F8; display:block; margin-bottom:20px; }
-.mid-pro-info .pro-info{ border:1px solid #93B54E; width:464px; float:left;}
+.mid-pro-info .pro-info{ border:1px solid #93B54E; width:450px; float:left; margin:10px 0 0 15px;}
 .mid-pro-info .first{ margin-right:10px;}
 .mid-pro-info .pro-info h5{ font-size:22px; padding:5px 0 2px 0; font-weight:bold; text-align:center;}
 .mid-pro-info .pro-info h6{ font-size:15px; padding:2px 0 5px 0; font-weight:bold; text-align:center;}
-.mid-pro-info .pro-info .images{ width:230px; text-align:center; float:left;}
+.mid-pro-info .pro-info .images{ width:210px; text-align:center; float:left;}
 .mid-pro-info .pro-info .images img{ border:1px solid #93B54E; }
 .mid-pro-info .pro-info p { font-size:14px; padding:15px 0 3px 0; display:block;}
 .mid-pro-info .pro-info p.heading{ font-size:20px; padding:0 0 3px 0;}
@@ -5591,3 +5594,6 @@ add_in_item .form_registration_two a {
 .store-profile .slider p span{ padding:0 10px;}
 .store-profile .slider p.heading{ font-size:20px; padding:0 0 3px 0;}
 .store-profile .slider p a{ color:#0F0FFD; font-weight:bold; padding: 0; }
+
+
+.add_an_priceahipping{width:400px;border:none;padding:4px 6px; font-family:Arial, Helvetica, sans-serif; font-size:12px;margin-left:10px; height:160px;}
