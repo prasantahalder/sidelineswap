@@ -1,7 +1,7 @@
 <div class="left-part-inner">
   <div class="top-para">
     <h3>Welcome to Sideline Stores</h3>
-    <p>This is what SidelineSwap is all about. Nobody makes cooler gear than local teams and charities. Everyone wants their gear, but it's almost impossible to get your hands on it. With Sideline Stores we've created a place where you can easily access the coolest and most unique gear in your sport. Do you run a team or charity ?  <%= link_to "Set up your own store here.",store_new_path %></div>
+    <p>This is what SidelineSwap is all about. Nobody makes cooler gear than local teams and charities. Everyone wants their gear, but it's almost impossible to get your hands on it. With Sideline Stores we've created a place where you can easily access the coolest and most unique gear in your sport. Do you run a team or charity ?  <%= link_to "Set up your own store here.",store_new_path %></p>
   <div class="mid-pro-info">
     <% @featured_stores.each do |i| %>
       <% if i== 0 %>
@@ -53,7 +53,7 @@
         <ul class="detail">
           <li><span><h4>Organization</h4></span>
             <big><h4>Sport</h4></big>
-            <small><h4>Location</h4></small><br>
+            <small><h4>Location</h4></small><br/>
           </li>
         </ul>
 
@@ -63,17 +63,24 @@
             <li><span><%= link_to store.organizationname,store_show_path(store.id) %></span>
             <% sport=UserProfile.find(:first,:conditions => ['user_id =?',store.user_id]) %>
     <%# sport.each do |f| %>
-            <big><%= sport.sports %></big>
+              <small><%= sport.sports %></small>
             <small><%= store.location %></small></li>
     <%# end %>
+         
+
+<%= will_paginate @stores %><br/>
+
           <% end %>
         <% else %>
 
           <h4> Store Is not available here..</h4>
         <% end %>
+
       </ul>
+      
       <div class="clear"></div>
     </div>
     <div class="clear"></div>
   </div>
+</div>
 </div>

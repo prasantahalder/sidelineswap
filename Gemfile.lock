@@ -134,6 +134,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    will_paginate (3.0.2)
 
 PLATFORMS
   ruby
@@ -155,3 +156,4 @@ DEPENDENCIES
   resources_controller!
   ruby-debug
   tiny_mce
+  will_paginate (~> 3.0)

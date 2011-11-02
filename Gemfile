@@ -14,7 +14,7 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 gem 'resources_controller', :git => 'git://github.com/ianwhite/resources_controller'
 gem 'paperclip', '~> 2.3.8'
-#gem 'will_paginate', "~> 3.0.pre2"
+gem 'will_paginate', '~> 3.0'
 gem 'kaminari'
 gem 'mini_magick', "~> 3.1"
 gem 'jquery-rails', '>= 0.2.6'
